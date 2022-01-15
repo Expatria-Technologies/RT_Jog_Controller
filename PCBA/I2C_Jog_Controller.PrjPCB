@@ -1,9 +1,9 @@
 ﻿[Design]
 Version=1.0
 HierarchyMode=2
-ChannelRoomNamingStyle=3
+ChannelRoomNamingStyle=0
 ReleasesFolder=
-ChannelDesignatorFormatString=$Component_$RoomName
+ChannelDesignatorFormatString=$RoomName_$Component
 ChannelRoomLevelSeperator=
 OpenOutputs=1
 ArchiveProject=0
@@ -58,23 +58,6 @@ GenerateClassCluster=0
 DocumentUniqueId=JCWMWEML
 
 [Document2]
-DocumentPath=Schematic\Change Log.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=11
-DoLibraryUpdate=0
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=0
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=PULOQGSF
-
-[Document3]
 DocumentPath=Schematic\Top Level.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -91,7 +74,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=LHEJBEVA
 
-[Document4]
+[Document3]
 DocumentPath=Schematic\I2C_Jog_Controller.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -108,7 +91,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=VNJFNLBI
 
-[Document5]
+[Document4]
 DocumentPath=Schematic\I2C_Keypad.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -125,7 +108,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=GWSWJIXT
 
-[Document6]
+[Document5]
 DocumentPath=I2C_Jog_Controller.Annotation
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -142,7 +125,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document7]
+[Document6]
 DocumentPath=Layout\I2C_Jog_Controller.pcbdoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -159,7 +142,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=EYKKXNEJ
 
-[Document8]
+[Document7]
 DocumentPath=Layout\I2C_Jog_Controller.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -176,7 +159,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=NCQHDRRH
 
-[Document9]
+[Document8]
 DocumentPath=I2C_Jog_Controller.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -193,7 +176,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document10]
+[Document9]
 DocumentPath=I2C_Jog_Controller.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -210,7 +193,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=WPULNFFQ
 
-[Document11]
+[Document10]
 DocumentPath=Schematic\PushButtonBlack.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -226,6 +209,40 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=TFUCKSGQ
+
+[Document11]
+DocumentPath=Schematic\PushButtondirection.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=23
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=TYOHDQIK
+
+[Document12]
+DocumentPath=Schematic\I2C_Keypad_host_module.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=HIEDATZY
 
 [ProjectVariant1]
 UniqueID=2FD7A5CA-1890-45CB-96AB-94166B7423FD
@@ -259,7 +276,7 @@ UniqueID=9DCABE77-EFE4-4C17-BE88-8CE971FF8048
 Description=Production
 AllowFabrication=0
 ParameterCount=0
-VariationCount=64
+VariationCount=65
 Variation1=Designator=P4|UniqueId=\KFOZQFDD|Kind=1|AlternatePart= 
 Variation2=Designator=Q2|UniqueId=\SQXCCMPH|Kind=1|AlternatePart= 
 Variation3=Designator=R23|UniqueId=\LMCFNFDG|Kind=1|AlternatePart= 
@@ -324,6 +341,7 @@ Variation61=Designator=U2|UniqueId=\AFAOVGNO\GKNYJNPP|Kind=1|AlternatePart=
 Variation62=Designator=U3|UniqueId=\AFAOVGNO\MPPXSILR|Kind=1|AlternatePart= 
 Variation63=Designator=U4|UniqueId=\AFAOVGNO\PNZFQETI|Kind=1|AlternatePart= 
 Variation64=Designator=J1|UniqueId=\AFAOVGNO\VMTRLFHI|Kind=1|AlternatePart= 
+Variation65=Designator=J4|UniqueId=\AFAOVGNO\MEHNARCD\PQWBEGVO|Kind=1|AlternatePart= 
 ParamVariationCount=0
 
 [ProjectVariant3]
@@ -379,7 +397,7 @@ Value=JOG_CONTROLLER
 
 [Parameter2]
 Name=PCBREVNO
-Value=A2
+Value=A3
 
 [Parameter3]
 Name=Title
@@ -387,7 +405,7 @@ Value=JOG_CONTROLLER
 
 [Parameter4]
 Name=VarRevNo
-Value=A2
+Value=A3
 
 [Configuration1]
 Name=Default Configuration
@@ -1235,6 +1253,36 @@ OutputName11=Export STEP
 OutputDocumentPath11=
 OutputVariantName11=
 OutputDefault11=0
+OutputType12=Ansoft Neutral
+OutputName12=Ansoft Neutral (AutoPCB)
+OutputDocumentPath12=
+OutputVariantName12=
+OutputDefault12=0
+OutputType13=HyperLynx
+OutputName13=HyperLynx (AutoPCB)
+OutputDocumentPath13=
+OutputVariantName13=
+OutputDefault13=0
+OutputType14=Orcad v7 Capture Design
+OutputName14=Orcad v7 Capture Design (AutoSCH)
+OutputDocumentPath14=
+OutputVariantName14=
+OutputDefault14=0
+OutputType15=P-CAD ASCII
+OutputName15=P-CAD ASCII (AutoPCB)
+OutputDocumentPath15=
+OutputVariantName15=
+OutputDefault15=0
+OutputType16=P-CAD V16 Schematic Design
+OutputName16=P-CAD V16 Schematic Design (AutoSCH)
+OutputDocumentPath16=
+OutputVariantName16=
+OutputDefault16=0
+OutputType17=SiSoft
+OutputName17=SiSoft (AutoPCB)
+OutputDocumentPath17=
+OutputVariantName17=
+OutputDefault17=0
 
 [OutputGroup10]
 Name=PostProcess Outputs
