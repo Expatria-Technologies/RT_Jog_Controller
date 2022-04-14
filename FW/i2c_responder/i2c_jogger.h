@@ -226,5 +226,5 @@ enum ScreenMode screenmode;
 }
 #endif // _LINUX_
 
-#endif // __SS_OLED_H__
+#endif // 
 

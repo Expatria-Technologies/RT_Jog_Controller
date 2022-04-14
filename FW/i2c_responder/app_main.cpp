@@ -515,6 +515,9 @@ static void draw_main_screen(bool force){
           if(packet->a_coordinate != 0xFFFFFFFF){ 
             sprintf(charbuf, "A %8.3F", packet->a_coordinate);
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
+          }else{
+            sprintf(charbuf, "          ", packet->a_coordinate);
+            oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);            
           }
         }          
 
@@ -538,20 +541,27 @@ static void draw_main_screen(bool force){
           oledWriteString(&oled, 0,0,2,(char *)"                G", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,-1,-1,map_coord_system(packet->current_wcs), FONT_6x8, 0, 1);   
 
-        oledWriteString(&oled, 0,0,4,(char *)"                ", FONT_6x8, 0, 1);
-          oledWriteString(&oled, 0,-1,-1,(char *)"RUN ", FONT_6x8, 0, 1); 
+          oledWriteString(&oled, 0,0,4,(char *)"                ", FONT_6x8, 0, 1);
+          oledWriteString(&oled, 0,-1,-1,(char *)"RUN  ", FONT_6x8, 0, 1); 
 
-        oledWriteString(&oled, 2,0,2,(char *)"        ", FONT_8x8, 0, 1); 
-        sprintf(charbuf, "X %8.3F", packet->x_coordinate);
-        oledWriteString(&oled, 0,0,2,charbuf, FONT_8x8, 0, 1);
-        oledWriteString(&oled, 2,0,3,(char *)"        ", FONT_8x8, 0, 1); 
-        sprintf(charbuf, "Y %8.3F", packet->y_coordinate);
-        oledWriteString(&oled, 0,0,3,charbuf, FONT_8x8, 0, 1);
-        oledWriteString(&oled, 2,0,4,(char *)"        ", FONT_8x8, 0, 1); 
-        sprintf(charbuf, "Z %8.3F", packet->z_coordinate);
-        oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1); 
+          oledWriteString(&oled, 2,0,2,(char *)"        ", FONT_8x8, 0, 1); 
+          sprintf(charbuf, "X %8.3F", packet->x_coordinate);
+          oledWriteString(&oled, 0,0,2,charbuf, FONT_8x8, 0, 1);
+          oledWriteString(&oled, 2,0,3,(char *)"        ", FONT_8x8, 0, 1); 
+          sprintf(charbuf, "Y %8.3F", packet->y_coordinate);
+          oledWriteString(&oled, 0,0,3,charbuf, FONT_8x8, 0, 1);
+          oledWriteString(&oled, 2,0,4,(char *)"        ", FONT_8x8, 0, 1); 
+          sprintf(charbuf, "Z %8.3F", packet->z_coordinate);
+          oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);
+          if(packet->a_coordinate != 0xFFFFFFFF){ 
+            sprintf(charbuf, "A %8.3F", packet->a_coordinate);
+            oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
+          }else{
+            sprintf(charbuf, "          ", packet->a_coordinate);
+            oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);            
+          }         
 
-          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);            
+          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);          
 
           sprintf(charbuf, "S:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
           oledWriteString(&oled, 0,0,BOTTOMLINE,charbuf, FONT_6x8, 0, 1);
@@ -573,7 +583,14 @@ static void draw_main_screen(bool force){
           sprintf(charbuf, "Y %8.3F", packet->y_coordinate);
           oledWriteString(&oled, 0,0,3,charbuf, FONT_8x8, 0, 1); 
           sprintf(charbuf, "Z %8.3F", packet->z_coordinate);
-          oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1); 
+          oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);
+          if(packet->a_coordinate != 0xFFFFFFFF){ 
+            sprintf(charbuf, "A %8.3F", packet->a_coordinate);
+            oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
+          }else{
+            sprintf(charbuf, "          ", packet->a_coordinate);
+            oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);            
+          }           
 
           oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);            
 
@@ -610,7 +627,13 @@ static void draw_main_screen(bool force){
           oledWriteString(&oled, 0,0,3,charbuf, FONT_8x8, 0, 1); 
           sprintf(charbuf, "Z %8.3F", packet->z_coordinate);
           oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);         
-          //cannot adjust overrides
+          if(packet->a_coordinate != 0xFFFFFFFF){ 
+            sprintf(charbuf, "A %8.3F", packet->a_coordinate);
+            oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
+          }else{
+            sprintf(charbuf, "          ", packet->a_coordinate);
+            oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);            
+          }
           oledWriteString(&oled, 0,0,BOTTOMLINE,(char *)" TOOL CHANGE", INFOFONT, 0, 1);
         break; //close tool case
 
@@ -619,7 +642,7 @@ static void draw_main_screen(bool force){
           oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
           //no jog during hold
-          oledWriteString(&oled, 0,0,5,(char *)"HOMING", JOGFONT, 0, 1);
+          oledWriteString(&oled, 0,0,4,(char *)"HOMING", JOGFONT, 0, 1);
         break; //close home case
 
         case STATE_ALARM : //no overrides during homing
@@ -873,15 +896,13 @@ draw_main_screen(1);
           pixels.setPixelColor(HALTLED,pixels.Color(0, 0, 0));        
           key_character = 0x18;
           while(gpio_get(HALTBUTTON))
-            sleep_ms(250);
-          //gpio_put(KPSTR_PIN, false);        
+            sleep_ms(250);     
         } else if (gpio_get(HOLDBUTTON)){
           pixels.setPixelColor(HOLDLED,pixels.Color(0, 0, 0));
           if(!jog_toggle_pressed){             
           key_character = '!';
           keypad_sendchar(key_character, 0, 1);
           }
-          //pixels.show();  
           while(gpio_get(HOLDBUTTON))
             sleep_us(100);
           gpio_put(KPSTR_PIN, false);
@@ -892,7 +913,6 @@ draw_main_screen(1);
           key_character = '~';
           keypad_sendchar(key_character, 0, 1);
           }
-          //pixels.show(); 
           while(gpio_get(RUNBUTTON))
             sleep_us(100);
           gpio_put(KPSTR_PIN, false);    
@@ -926,7 +946,6 @@ draw_main_screen(1);
                    gpio_get(LEFTBUTTON) ||
                    gpio_get(RAISEBUTTON) ||
                    gpio_get(LOWERBUTTON) ){
-          //if(!direction_pressed)
           activate_jogled();
           direction_pressed = 0;           
           direction_pressed = direction_pressed | gpio_get(UPBUTTON) << UP;
@@ -942,15 +961,13 @@ draw_main_screen(1);
             }
             key_character = '\0';
             context.mem[0] = key_character;
-            //keypad_sendchar (key_character, 1, 1);
             gpio_put(KPSTR_PIN, false); //make sure stobe is clear when no button is pressed.
           if (status_update_counter < 1){
             status_update_counter = STATUS_REQUEST_PERIOD;
             draw_main_screen(0);
             update_neopixels();
           }
-        }
-        
+        }        
 
           //close button reads
 //Handle jogging commands ***********************************************************************
@@ -974,11 +991,11 @@ draw_main_screen(1);
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_YF :
-              key_character = 'F';
+              key_character = 'B';
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_YB :
-              key_character = 'B';
+              key_character = 'F';
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_ZU :
@@ -1095,8 +1112,7 @@ draw_main_screen(1);
           else{
             jog_toggle_pressed = 0;
             screenmode = DEFAULT;
-            update_neopixels();
-            //draw_main_screen(1);                         
+            update_neopixels();                         
           }
         }
         if (feed_down_pressed) {
@@ -1106,8 +1122,7 @@ draw_main_screen(1);
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             feed_down_pressed = 0;
-            update_neopixels();
-            //draw_main_screen(0);                        
+            update_neopixels();                       
           }
         }
         if (feed_up_pressed) {
@@ -1117,8 +1132,7 @@ draw_main_screen(1);
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             feed_up_pressed = 0;
-            update_neopixels();
-            //draw_main_screen(0);                
+            update_neopixels();                
           }
         }
         if (feed_reset_pressed) {
@@ -1128,8 +1142,7 @@ draw_main_screen(1);
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             feed_reset_pressed = 0;
-            update_neopixels();
-            //draw_main_screen(0);                 
+            update_neopixels();                
           }
         }
         if (spin_down_pressed) {
@@ -1139,8 +1152,7 @@ draw_main_screen(1);
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             spin_down_pressed = 0;
-            update_neopixels();
-            //draw_main_screen(0);            
+            update_neopixels();           
           }
         }
         if (spin_up_pressed) {
@@ -1150,8 +1162,7 @@ draw_main_screen(1);
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             spin_up_pressed = 0;
-            update_neopixels();
-            //draw_main_screen(0);            
+            update_neopixels();         
           }
         }
         if (spin_reset_pressed) {
@@ -1161,8 +1172,7 @@ draw_main_screen(1);
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             spin_reset_pressed = 0;
-            update_neopixels();
-            //draw_main_screen(0);            
+            update_neopixels();          
           }
         }
         if (mist_pressed) {
@@ -1174,8 +1184,7 @@ draw_main_screen(1);
             gpio_put(ONBOARD_LED,1);
             }
             mist_pressed = 0;
-            update_neopixels();
-            //draw_main_screen(0);            
+            update_neopixels();           
           }
         }
         if (flood_pressed) {
@@ -1187,8 +1196,7 @@ draw_main_screen(1);
             gpio_put(ONBOARD_LED,1);
             }
             flood_pressed = 0;
-            update_neopixels();
-            //draw_main_screen(0);            
+            update_neopixels();           
           }                    
         }
         if (spinoff_pressed) {
@@ -1200,8 +1208,7 @@ draw_main_screen(1);
             gpio_put(ONBOARD_LED,1);
             }
             spinoff_pressed = 0;
-            update_neopixels();
-            //draw_main_screen(0);            
+            update_neopixels();           
           }                    
         } 
         if (home_pressed) {
@@ -1213,8 +1220,7 @@ draw_main_screen(1);
             gpio_put(ONBOARD_LED,1);
           }
             home_pressed = 0;         
-            update_neopixels();
-            //draw_main_screen(0);            
+            update_neopixels();          
           }                    
         }
         if (jog_mod_pressed) {
@@ -1225,8 +1231,7 @@ draw_main_screen(1);
             gpio_put(ONBOARD_LED,1);
             jog_mod_pressed = 0;
             sleep_ms(10);
-            update_neopixels();
-            //draw_main_screen(0);                        
+            update_neopixels();                       
           }
         }
         if (jog_mode_pressed) {
@@ -1255,8 +1260,7 @@ draw_main_screen(1);
           gpio_put(ONBOARD_LED,1);
           jog_mode_pressed = 0;
           sleep_ms(10);
-          update_neopixels();
-          //draw_main_screen(0);                    
+          update_neopixels();                   
           }
         }
         if (macro_left_pressed){
@@ -1268,7 +1272,6 @@ draw_main_screen(1);
             macro_left_pressed = 0;
             sleep_ms(10);
             update_neopixels();
-            //draw_main_screen(0);
         }}
         if (macro_right_pressed){
           if (gpio_get(RIGHTBUTTON)){}//button is still pressed, do nothing
@@ -1279,7 +1282,6 @@ draw_main_screen(1);
             macro_right_pressed = 0;
             sleep_ms(10);
             update_neopixels();
-            //draw_main_screen(0);
         }}
         if (macro_top_pressed){
           if (gpio_get(UPBUTTON)){}//button is still pressed, do nothing
@@ -1290,7 +1292,6 @@ draw_main_screen(1);
             macro_top_pressed = 0;
             sleep_ms(10);
             update_neopixels();
-            //draw_main_screen(0);
         }}
         if (macro_bot_pressed){
           if (gpio_get(DOWNBUTTON)){}//button is still pressed, do nothing
@@ -1301,7 +1302,6 @@ draw_main_screen(1);
             macro_bot_pressed = 0;
             sleep_ms(10);
             update_neopixels();
-            //draw_main_screen(0);
         }}
         if (macro_lower_pressed){
           if (gpio_get(LOWERBUTTON)){
@@ -1319,7 +1319,6 @@ draw_main_screen(1);
             macro_lower_pressed = 0;
             sleep_ms(10);
             update_neopixels();
-            //draw_main_screen(0);
         }}
         if (macro_raise_pressed){
           if (gpio_get(RAISEBUTTON)){
@@ -1336,7 +1335,6 @@ draw_main_screen(1);
             macro_raise_pressed = 0;
             sleep_ms(10);
             update_neopixels();
-            //draw_main_screen(0);
         }}        
         if (spinon_pressed){
           if (gpio_get(SPINDLEBUTTON)){}//button is still pressed, do nothing
@@ -1347,7 +1345,6 @@ draw_main_screen(1);
             spinon_pressed = 0;
             sleep_ms(10);
             update_neopixels();
-            //draw_main_screen(0);
         }}
         if (macro_home_pressed){
           if (gpio_get(HOMEBUTTON)){}//button is still pressed, do nothing
@@ -1358,7 +1355,6 @@ draw_main_screen(1);
             macro_home_pressed = 0;
             sleep_ms(10);
             update_neopixels();
-            //draw_main_screen(0);
         }}
         if (reset_pressed){
           if (gpio_get(HOLDBUTTON)){}//button is still pressed, do nothing
@@ -1369,7 +1365,6 @@ draw_main_screen(1);
             reset_pressed = 0;
             sleep_ms(10);
             update_neopixels();
-            //draw_main_screen(0);
         }}
         if (unlock_pressed){
           if (gpio_get(RUNBUTTON)){}//button is still pressed, do nothing
@@ -1380,7 +1375,6 @@ draw_main_screen(1);
             unlock_pressed = 0;
             sleep_ms(10);
             update_neopixels();
-            //draw_main_screen(0);
         }}  
         if (halt_pressed){
           if (gpio_get(HALTBUTTON)){
