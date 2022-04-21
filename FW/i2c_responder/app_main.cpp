@@ -961,6 +961,7 @@ draw_main_screen(1);
             }
             key_character = '\0';
             context.mem[0] = key_character;
+            keypad_sendchar (key_character, 1, 1);          
             gpio_put(KPSTR_PIN, false); //make sure stobe is clear when no button is pressed.
           if (status_update_counter < 1){
             status_update_counter = STATUS_REQUEST_PERIOD;

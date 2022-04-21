@@ -100,10 +100,10 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define JOG_YB   0b000001
 #define JOG_ZU   0b010000
 #define JOG_ZD   0b100000
-#define JOG_XRYF JOG_XR | JOG_YF
-#define JOG_XRYB JOG_XR | JOG_YB
-#define JOG_XLYF JOG_XL | JOG_YF
-#define JOG_XLYB JOG_XL | JOG_YB
+#define JOG_XRYF JOG_XR | JOG_YB
+#define JOG_XRYB JOG_XR | JOG_YF
+#define JOG_XLYF JOG_XL | JOG_YB
+#define JOG_XLYB JOG_XL | JOG_YF
 /*#define JOG_XRZU JOG_XR | JOG_ZU
 #define JOG_XRZD JOG_XR | JOG_ZD
 #define JOG_XLZU JOG_XL | JOG_ZU
