@@ -31,7 +31,7 @@ ReportSuppressedErrorsInMessages=0
 FSMCodingStyle=eFMSDropDownList_OneProcess
 FSMEncodingStyle=eFMSDropDownList_OneHot
 IsProjectConflictPreventionWarningsEnabled=1
-OutputPath=Project Outputs for I2C_Jog_Controller
+OutputPath=
 LogFolderPath=
 ManagedProjectGUID=
 IncludeDesignInRelease=0
@@ -291,14 +291,14 @@ AllowFabrication=0
 ParameterCount=0
 VariationCount=9
 Variation1=Designator=Q2|UniqueId=\AFAOVGNO\MEHNARCD\AYPZFBET|Kind=1|AlternatePart= 
-Variation2=Designator=P14|UniqueId=\AFAOVGNO\RUVXNHLR\OQLQWOLS|Kind=1|AlternatePart= 
-Variation3=Designator=U10|UniqueId=\AFAOVGNO\RUVXNHLR\AHRDUHCN|Kind=1|AlternatePart= 
+Variation2=Designator=P14|UniqueId=\AFAOVGNO\RUVXNHLR\OQLQWOLS|Kind=0|AlternatePart= 
+Variation3=Designator=U10|UniqueId=\AFAOVGNO\RUVXNHLR\AHRDUHCN|Kind=0|AlternatePart= 
 Variation4=Designator=P1|UniqueId=\AFAOVGNO\SYWQVSXC|Kind=1|AlternatePart= 
 Variation5=Designator=U2|UniqueId=\AFAOVGNO\ZMJDVQZU|Kind=1|AlternatePart= 
 Variation6=Designator=U3|UniqueId=\AFAOVGNO\ICSUZNTK|Kind=1|AlternatePart= 
 Variation7=Designator=U4|UniqueId=\AFAOVGNO\FSYIONIH|Kind=1|AlternatePart= 
 Variation8=Designator=J1|UniqueId=\AFAOVGNO\VMTRLFHI|Kind=1|AlternatePart= 
-Variation9=Designator=J4|UniqueId=\AFAOVGNO\RUVXNHLR\SHJRYKKM|Kind=1|AlternatePart= 
+Variation9=Designator=J4|UniqueId=\AFAOVGNO\RUVXNHLR\SHJRYKKM|Kind=0|AlternatePart= 
 ParamVariationCount=0
 
 [SearchPath1]
@@ -314,20 +314,20 @@ Path=..\libraries\*.*
 IncludeSubFolders=1
 
 [Parameter1]
-Name=VarRevNo
-Value=A4
-
-[Parameter2]
-Name=Title
+Name=PCBPARTNO
 Value=JOG_CONTROLLER
 
-[Parameter3]
+[Parameter2]
 Name=PCBREVNO
 Value=A4
 
-[Parameter4]
-Name=PCBPARTNO
+[Parameter3]
+Name=Title
 Value=JOG_CONTROLLER
+
+[Parameter4]
+Name=VarRevNo
+Value=A4
 
 [Configuration1]
 Name=Default Configuration
@@ -496,7 +496,7 @@ TerminationPrefC7=0
 TerminationVCC7=5
 
 [Generic_EDE]
-OutputDir=Project Outputs for I2C_Jog_Controller
+OutputDir=
 
 [OutputGroup1]
 Name=Netlist Outputs
