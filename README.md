@@ -12,7 +12,7 @@ The key features of the Jog2K:
 
 1) Immediate access to GRBLHAL jogging functionality and real-time commands
 2) DRO with selectable WCS
-3) Simple macro functionaltiy
+3) Simple macro functionality
 
 ## Usage
 
@@ -36,14 +36,14 @@ Each macro is limited to 127 characters.  The macro on the spindle button has a 
 
 ## Cable Interface - 5 Gbps Link Cable Required.
 
-some pre-release Jog2K systems used RJ45 connections, but all current and future releases will use USB-C connectors on both the Jog2K and the host interface module.  It is cricitical that the correct USBC cable is used.  Many USB-C cables do not have all of the conductors inside and these will not work with the Jog2k.  Always use a cable that is rated for USB-C display (5 Gbps data transfer) and 3A maximum current.  An Oculus Link cable is commonly available and works well.  These cables also have the advantage that they are usually high quality and well shielded.
+Some pre-release Jog2K systems used RJ45 connections, but all current and future releases will use USB-C connectors on both the Jog2K and the host interface module.  It is cricitical that the correct USBC cable is used.  Many USB-C cables do not have all of the conductors inside and these will not work with the Jog2k.  Always use a cable that is rated for USB-C display (5 Gbps data transfer) and 3A maximum current.  An Oculus Link cable is commonly available and works well.  These cables also have the advantage that they are usually high quality and well shielded.
 
 
 ## Assembly
 
 Upon receipt of the Jogger, the small interface module should be snapped off from the main PCB.  This module is installed on the 5 and 4 pin QWIIC/I2C headers on the GRBLHAL2000 board.  The reason the module is included with the Jog2K is due to part availability challenges.  Different interface designs may be used as parts go in and out of stock, and therefore the interface module is included to ensure compatibility.
 
-In addition to the interfae module, the Jog2K requires a 0.93 or 0.96 inch I2C OLED screen and a Raspberry Pi Pico.  The Pico is installed on the bottom side of the boardby soldering directly to the SMD pads, no headers are used.  The interior pico pads do not need to be soldered from the bottom side.  Once the Pico is installed, flip the board over and apply a significant amount of solder and heat to the BOOTSEL hole on the top side.  The connects the boot select button to the Pico so that the firmware can easily be upgraded after the Jog2k is fully assembled.
+In addition to the interface module, the Jog2K requires a 0.93 or 0.96 inch I2C OLED screen and a Raspberry Pi Pico.  The Pico is installed on the bottom side of the board by soldering directly to the SMD pads, no headers are used.  The interior Pico pads do not need to be soldered from the bottom side.  Once the Pico is installed, flip the board over and apply a significant amount of solder and heat to the BOOTSEL hole on the top side.  This connects the boot select button to the Pico so that the firmware can easily be upgraded after the Jog2k is fully assembled.
 
 <img src="/readme_images/bootsel_location.jpg" width="400">
 
