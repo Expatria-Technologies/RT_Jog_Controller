@@ -4,7 +4,7 @@
 
 Expatria Technologies I2C jog controller for GRBLHAL2000 boards
 
-This jog controller was developed for the GRLBHAL20000 board.  It is designed to be relatively inexpensive and simple to assemble.  It does not rely on any manual wiring focuses on 3d printable parts for assembly.  The system consists of a small interface module that is installed on the QWIIC/I2C headers on the Hal2000, plus a simple lighted button keypad that uses a Raspberry Pi Pico to send character commands to GRBLHAL and receive status information.  This pendant relies on the modified I2C Keypad plugin that was extended by Expatria Technologies:
+This jog controller was developed for the GRLBHAL20000 board.  It is designed to be relatively inexpensive and simple to assemble.  It does not need any manual wiring and leverages 3d printable parts for assembly.  The system consists of a small interface module that is installed on the QWIIC/I2C headers on the Hal2000, plus a simple lighted button keypad that uses a Raspberry Pi Pico to send character commands to GRBLHAL and receive status information.  This pendant relies on the modified I2C Keypad plugin that was extended by Expatria Technologies:
 
 https://github.com/Expatria-Technologies/Plugin_I2C_keypad
 
@@ -16,17 +16,21 @@ The key features of the Jog2K:
 
 ## Usage
 
-<img src="/readme_images/buttonmap.jpg" width="500">
+<img src="/readme_images/buttonmap.jpg" width="400">
 
 Many of the buttons on the Jog2K have alternate functions that are accessed via the SHIFT/FUNCTION button.  The XYZ jog buttons give access to the configurable macros.  In the event that a 4th axis is enabled in GRBLHAL, the macro functions of the Z axis buttons are lost and the alternate function for those buttons changes to jogging the A axis.
 
-Other than the jog buttons, the HALT button has an alternate function which is to flip the OLED screen vertically.  There is no standard orientation for these screens so if yours is upside-down after installation, simply activate the screen flip.  The screen orientation is stored in NVM.
+The alternate fuctions for the Mist and Flood buttons control the current jog mode and rate.  The Shift-Mist button toggles between Fast, Slow and step modes (these are configurable in IOSender).  The Shift-Flood button will change the decimal place of the current jog mode.
+
+The Shift-HOME function will toggle between the active WCS: G54, G55 etc.
+
+The HALT button has an alternate function which is to flip the OLED screen vertically.  There is no standard orientation for these screens so if yours is upside-down after installation, simply activate the screen flip.  The screen orientation is stored in NVM.
 
 ## Macros
 
 It is easiest to configure the macros in IOSender.
 
-<img src="/readme_images/macros.jpg" width="500">
+<img src="/readme_images/macros.jpg" width="400">
 
 Each macro is limited to 127 characters.  The macro on the spindle button has a special function.  When the spindle is off, the macro will run and it is intended to start up the spindle at a slow rate (the default value for this macro is 200 RPM).  When the spindle is running, activating the spindle macro button will send an M5 command to stop the spindle.  The primary use of this functionality is for manual edge-finding.
 
@@ -41,16 +45,16 @@ Upon receipt of the Jogger, the small interface module should be snapped off fro
 
 In addition to the interfae module, the Jog2K requires a 0.93 or 0.96 inch I2C OLED screen and a Raspberry Pi Pico.  The Pico is installed on the bottom side of the boardby soldering directly to the SMD pads, no headers are used.  The interior pico pads do not need to be soldered from the bottom side.  Once the Pico is installed, flip the board over and apply a significant amount of solder and heat to the BOOTSEL hole on the top side.  The connects the boot select button to the Pico so that the firmware can easily be upgraded after the Jog2k is fully assembled.
 
-<img src="/readme_images/bootsel_location.jpg" width="500">
+<img src="/readme_images/bootsel_location.jpg" width="400">
 
 
 Ensure that your oled screen pinout matches the pinout labelled on the jogger PCBA.
 
-<img src="/readme_images/screen_pinout.jpg" width="500">
+<img src="/readme_images/screen_pinout.jpg" width="300">
 
 Install the OLED in the 4 pin header location and try to keep it straight when soldering.
 
-<img src="/readme_images/screen_install.jpg" width="500">
+<img src="/readme_images/screen_install.jpg" width="400">
 
 Once the PCBA is fully assembled simply print the buttons in clear PETG so that the neopixel functions are visible.  The shift, coolant and override buttons are not backlit and can be printed in black or other suitable colors. For these functions, there are lightpipe models provided.  Finally there are two smaller buttons for BOOTSEL and RESET.
 
@@ -58,7 +62,7 @@ A window for the screen will need to be cut on your CNC from clear acrylic or po
 
 For current and future USB-C equipped Jog2K boards, the jog_bottom_box_slim should be used.  The previous model is included only for reference.
 
-<img src="/readme_images/unit_photo.jpg" width="500">
+<img src="/readme_images/unit_photo.jpg" width="400">
 
 ### Attributions
 This project uses components from the very helpful actiBMS library for JLCPCB SMT parts.
