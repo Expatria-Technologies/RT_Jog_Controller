@@ -4,9 +4,9 @@ C:\Repo\I2C_Jog_Controller\PCBA\Project Outputs for I2C_Jog_Controller\I2C_Jog_C
 ========================================================================================================================
 File Design Information:
 
-Date:       21-04-22
-Time:       00:12
-Revision:   330a0559d76209b41af4d1bdedd7b858e1a1113b
+Date:       11-05-22
+Time:       11:15
+Revision:   1f8edf632ff1848fe6399aa24a5aa63a510f3716
 Variant:    FULL_ASSEMBLY
 Units used: mm
 
@@ -41,6 +41,9 @@ Units used: mm
 "HME_C13","61.5000","60.3750","TopLayer","90","0402_C"
 "HME_C12","65.0000","61.8750","TopLayer","90","0402_C"
 "U5","70.5000","40.7500","TopLayer","180","ADA-RGB-1655_V"
+"U4","71.7500","76.1250","TopLayer","90","ADA-RGB-1655_V"
+"U3","72.0000","92.3750","TopLayer","90","ADA-RGB-1655_V"
+"U2","19.1250","27.7500","TopLayer","0","ADA-RGB-1655_V"
 "C7","71.2500","87.8000","TopLayer","90","0402_C"
 "C6","70.1250","71.5000","TopLayer","90","0402_C"
 "C5","16.2500","31.0000","TopLayer","0","0402_C"
