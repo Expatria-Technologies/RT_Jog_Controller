@@ -5,8 +5,8 @@ C:\Repo\I2C_Jog_Controller\PCBA\Project Outputs for I2C_Jog_Controller\I2C_Jog_C
 File Design Information:
 
 Date:       11-05-22
-Time:       11:15
-Revision:   1f8edf632ff1848fe6399aa24a5aa63a510f3716
+Time:       12:46
+Revision:   756272b5c3a2dec920317803a6332d19a71f0b4b
 Variant:    FULL_ASSEMBLY
 Units used: mm
 
@@ -169,6 +169,7 @@ Units used: mm
 "FHL_C12","84.3750","72.3750","TopLayer","90","0402_C"
 "HLT_C12","84.3750","93.1250","TopLayer","90","0402_C"
 "SW1","40.1250","58.5000","TopLayer","180","TECO-FSM4JSMATR_V"
+"Q2","45.1750","4.6250","TopLayer","270","SOT-23(SOT-23-3)"
 "Q1","50.7500","2.5000","TopLayer","90","SOT-23(SOT-23-3)"
 "SW2","30.2500","58.5000","TopLayer","0","TECO-FSM4JSMATR_V"
 "R2","21.0000","4.6250","TopLayer","270","0402_R"
