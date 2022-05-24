@@ -79,6 +79,8 @@ int status_update_counter = 0;
 int onboard_led_count = 0;
 int jogmode = 0;
 
+int command_error = 0;
+
 // ram_addr is the current address to be used when writing / reading the RAM
 // N.B. the address auto increments, as stored in 8 bit value it automatically rolls round when reaches 255
 
@@ -193,6 +195,9 @@ volatile bool timer_fired = false;
 uint8_t keypad_sendchar (uint8_t character, bool clearpin, bool update_status) {
   //maybe use key_pressed variable to avoid spamming?
   int timeout = I2C_TIMEOUT_VALUE;
+
+  command_error = 0;
+
   gpio_put(ONBOARD_LED, 0);
 
   while (context.mem_address_written != false && context.mem_address>0);
@@ -206,6 +211,9 @@ uint8_t keypad_sendchar (uint8_t character, bool clearpin, bool update_status) {
     while (context.mem_address == 0 && timeout){
       sleep_us(1000);      
       timeout = timeout - 1;}
+
+    if(!timeout)
+      command_error = 1;
     //sleep_ms(2);
     if (clearpin){
       sleep_ms(5);
@@ -512,11 +520,15 @@ static void draw_main_screen(bool force){
             sprintf(charbuf, "Z %8.3F", packet->z_coordinate);
             oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);
           //}
-          if(packet->a_coordinate != 0xFFFFFFFF){ 
+          if(packet->a_coordinate < 65535){          
             sprintf(charbuf, "A %8.3F", packet->a_coordinate);
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
+          }else if (command_error){
+            sprintf(charbuf, "COMMAND ERR", packet->a_coordinate);
+            oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
+            sleep_ms(100);            
           }else{
-            sprintf(charbuf, "          ", packet->a_coordinate);
+            sprintf(charbuf, "           ", packet->a_coordinate);
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);            
           }
         }          
@@ -958,10 +970,7 @@ draw_main_screen(1);
             if(direction_pressed){
               direction_pressed = 0;
               rollover_delay = 0;
-            }
-            key_character = '\0';
-            context.mem[0] = key_character;
-            keypad_sendchar (key_character, 1, 1);          
+            }       
             gpio_put(KPSTR_PIN, false); //make sure stobe is clear when no button is pressed.
           if (status_update_counter < 1){
             status_update_counter = STATUS_REQUEST_PERIOD;
