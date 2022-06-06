@@ -149,6 +149,40 @@ GenerateClassCluster=0
 DocumentUniqueId=EIMSOPIT
 
 [Document7]
+DocumentPath=D:\Apps\Whirligig\SJ1-42514\SnapEDAsch.SchLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=JVHTISAB
+
+[Document8]
+DocumentPath=D:\Apps\Whirligig\SJ1-42514\SnapEDApcb.PcbLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=GMIVLSFD
+
+[Document9]
 DocumentPath=Layout\I2C_Jog_Controller.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -165,7 +199,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=NCQHDRRH
 
-[Document8]
+[Document10]
 DocumentPath=I2C_Jog_Controller.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -182,7 +216,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document9]
+[Document11]
 DocumentPath=I2C_Jog_Controller.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -199,7 +233,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=WPULNFFQ
 
-[Document10]
+[Document12]
 DocumentPath=Schematic\PushButtonBlack.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -216,7 +250,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=TFUCKSGQ
 
-[Document11]
+[Document13]
 DocumentPath=Schematic\PushButtondirection.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -233,7 +267,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=TYOHDQIK
 
-[Document12]
+[Document14]
 DocumentPath=Schematic\I2C_Keypad_host_module_HID.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -248,9 +282,9 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=1
-DocumentUniqueId=HIEDATZY
+DocumentUniqueId=GCJDISIH
 
-[Document13]
+[Document15]
 DocumentPath=..\..\grblhal_2000_PrintNC\Schematic\PrintNC_GRBLHAL_Breakout.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -267,7 +301,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=AASVDFFC
 
-[Document14]
+[Document16]
 DocumentPath=..\..\grblhal_2000_PrintNC\Layout\PrintNC_GRBLHAL_Breakout.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -284,7 +318,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document15]
+[Document17]
 DocumentPath=..\..\cnc_projects\limit_switch_board_g2core\Universal_CNC_Breakout.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -301,7 +335,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document16]
+[Document18]
 DocumentPath=..\..\cnc_projects\limit_switch_board_g2core\Layout\Universal_breakout.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -318,7 +352,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document17]
+[Document19]
 DocumentPath=Schematic\I2C_Keypad_host_module.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -335,7 +369,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=THUBFGDA
 
-[Document18]
+[Document20]
 DocumentPath=..\..\cnc_projects\Altium_JLC_Library\Miscellaneous Devices LC.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -387,7 +421,7 @@ Value=JOG_CONTROLLER
 
 [Parameter2]
 Name=PCBREVNO
-Value=A4
+Value=B1
 
 [Parameter3]
 Name=Title
@@ -395,7 +429,7 @@ Value=JOG_CONTROLLER
 
 [Parameter4]
 Name=VarRevNo
-Value=A4
+Value=B1
 
 [Configuration1]
 Name=Default Configuration
