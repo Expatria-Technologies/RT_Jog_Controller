@@ -26,9 +26,17 @@ Holes for fasteners are designed to accept heatset inserts of the Voron typical 
 ### Assembly
 - Trim/deburr/clean up printed enclosure halves.
 - Install heat set inserts into both enclosure halves.
-- Insert buttons and lightpipes. Lightpipes are a fairly tight press fit.
+- Insert buttons and lightpipes. Lightpipes are a fairly tight press fit. Some trimming of the holes may be required if the fit is too tight.
 - Align PCB with holes/captures
 - Insert M3 x 6mm cap screws and tighten
 - Flip cover over and ensure all buttons are operational. If any are stuck, loosen screws on PCB and adjust alignmnent slightly
 - Insert assembled top cover into back enclosure
 - Insert M3 x 16mm flat head screws and tighten
+
+### Notes
+- Pretty much any resin type will work. Success has been had with Elegoo Standard, Siraya Tech Fast, and Eryone ABS-like.
+The resin buttons may warp slightly at the base as the resin shrinks. The clearances of the cover have been designed such that any warping here shouldn't cause a problem.
+- Print the black resin parts last. The resin will shrink in the first day or so after printing, and it will be easier to get them on if the other parts have shrunk a bit first. If print settings are well tuned, the black covers will fit tightly enough after shrinking that they will stay put on their own. 
+- Likewise, the buttons may fit too tightly in the enclosure right after printing. They will loosen up a bit after a day or so of resting, when they are at final dimension.
+- A tapered reamer of the type typically used for RC car bodyshells is an ideal tool for cleaning up first layer 'squish' in round holes or fine tuning the lightpipe holes. - https://www.aliexpress.com/item/1005003460682946.html They're usually available on Amazon for about $10 too.
+
