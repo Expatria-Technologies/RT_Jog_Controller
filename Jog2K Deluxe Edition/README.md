@@ -1,6 +1,8 @@
-# Jog2k Enclosure
+# Jog2k Deluxe Enclosure
 
 ![](./Images/Jog2k_Enclosure_2.png)
+
+A more involved build for the Jog2K enclosure.
 
 ### Buttons
 Buttons are designed for MSLA printing, and are assembled from 2 parts. The 'lightpipe' or 'core', and the 'cover'. Cores should be printed in white, lightpipes in translucent, and covers in black. There is a small amount of clearance designed in to the parts to allow for slight differences in resin tuning. Button pieces can be glued together with a small amount of CA glue if needed. 
