@@ -16,7 +16,7 @@ Holes for fasteners are designed to accept heatset inserts of the Voron typical 
 
 
 ### Hardware Required
-- 10x - M3 heatset inserts - 3 x 4 x 5mm - https://www.aliexpress.com/item/1005003286574326.html
+- 11x - M3 heatset inserts - 3 x 4 x 5mm - https://www.aliexpress.com/item/1005003286574326.html
 - 4x - M3 x 16mm flat head screws  - https://www.aliexpress.com/item/32965208731.html
 - 7x - M3 x 6mm cap screws - https://www.aliexpress.com/item/32965177647.html
 - 7x - M3 fiber insulating washers (optional, but recommended) - https://www.aliexpress.com/item/33004539502.html
