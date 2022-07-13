@@ -12,23 +12,22 @@ The enclosure is designed to be FDM/FFF printed with a standard 0.4mm nozzle in 
 
 There is a recess in the rear of the enclosure for a window in the same shape as the standard enclosure. It can be cut from acrylic and glued in from the rear, with the lip hiding any glue residue. 
 
-Holes for fasteners are designed to accept heatset inserts of the Voron typical variety. 
+Holes for the fasteners that secure the lid are designed to accept heatset inserts of the Voron typical variety. The board is secured with self-tapping screws, as it is likely to be removed less often and it allows for more wiggle room for print tolerances.
 
 
 ### Hardware Required
-- 11x - M3 heatset inserts - 3 x 4 x 5mm - https://www.aliexpress.com/item/1005003286574326.html
+- 4x - M3 heatset inserts - 3 x 4 x 5mm - https://www.aliexpress.com/item/1005003286574326.html
 - 4x - M3 x 16mm flat head screws  - https://www.aliexpress.com/item/32965208731.html
-- 7x - M3 x 6mm cap screws - https://www.aliexpress.com/item/32965177647.html
-- 7x - M3 fiber insulating washers (optional, but recommended) - https://www.aliexpress.com/item/33004539502.html
+- 7x - M2.6 x 8mm self tapping screws - https://www.aliexpress.com/item/32970730241.html
 
 
 
 ### Assembly
 - Trim/deburr/clean up printed enclosure halves.
-- Install heat set inserts into both enclosure halves.
+- Install heat set inserts into the bottom half of the enclosure.
 - Insert buttons and lightpipes. Lightpipes are a fairly tight press fit. Some trimming of the holes may be required if the fit is too tight.
 - Align PCB with holes/captures
-- Insert M3 x 6mm cap screws and tighten
+- Insert M2.6 x 8mm self tapping screws and tighten
 - Flip cover over and ensure all buttons are operational. If any are stuck, loosen screws on PCB and adjust alignmnent slightly
 - Insert assembled top cover into back enclosure
 - Insert M3 x 16mm flat head screws and tighten
