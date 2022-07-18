@@ -25,12 +25,14 @@ NameNetsHierarchically=1
 PowerPortNamesTakePriority=1
 AutoSheetNumbering=0
 AutoCrossReferences=0
+NewIndexingOfSheetSymbols=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
 FSMCodingStyle=eFMSDropDownList_OneProcess
 FSMEncodingStyle=eFMSDropDownList_OneHot
 IsProjectConflictPreventionWarningsEnabled=1
+IsVirtualBomDocumentRemoved=0
 OutputPath=
 LogFolderPath=
 ManagedProjectGUID=
@@ -41,6 +43,7 @@ CrossRefPorts=3
 CrossRefCrossSheets=1
 CrossRefSheetEntries=0
 CrossRefFollowFromMainSettings=1
+CurrentVariant=FULL_ASSEMBLY
 
 [Preferences]
 PrefsVaultGUID=
@@ -290,13 +293,13 @@ Description=FULL_ASSEMBLY
 AllowFabrication=0
 ParameterCount=0
 VariationCount=9
-Variation1=Designator=Q2|UniqueId=\AFAOVGNO\MEHNARCD\AYPZFBET|Kind=1|AlternatePart= 
+Variation1=Designator=Q2|UniqueId=\AFAOVGNO\MEHNARCD\AYPZFBET|Kind=0|AlternatePart= 
 Variation2=Designator=P14|UniqueId=\AFAOVGNO\RUVXNHLR\OQLQWOLS|Kind=0|AlternatePart= 
 Variation3=Designator=U10|UniqueId=\AFAOVGNO\RUVXNHLR\AHRDUHCN|Kind=0|AlternatePart= 
 Variation4=Designator=P1|UniqueId=\AFAOVGNO\SYWQVSXC|Kind=1|AlternatePart= 
-Variation5=Designator=U2|UniqueId=\AFAOVGNO\ZMJDVQZU|Kind=1|AlternatePart= 
-Variation6=Designator=U3|UniqueId=\AFAOVGNO\ICSUZNTK|Kind=1|AlternatePart= 
-Variation7=Designator=U4|UniqueId=\AFAOVGNO\FSYIONIH|Kind=1|AlternatePart= 
+Variation5=Designator=U2|UniqueId=\AFAOVGNO\ZMJDVQZU|Kind=0|AlternatePart= 
+Variation6=Designator=U3|UniqueId=\AFAOVGNO\ICSUZNTK|Kind=0|AlternatePart= 
+Variation7=Designator=U4|UniqueId=\AFAOVGNO\FSYIONIH|Kind=0|AlternatePart= 
 Variation8=Designator=J1|UniqueId=\AFAOVGNO\VMTRLFHI|Kind=1|AlternatePart= 
 Variation9=Designator=J4|UniqueId=\AFAOVGNO\RUVXNHLR\SHJRYKKM|Kind=0|AlternatePart= 
 ParamVariationCount=0
@@ -1186,6 +1189,36 @@ OutputName12=Ansys EDB
 OutputDocumentPath12=
 OutputVariantName12=
 OutputDefault12=0
+OutputType13=Ansoft Neutral
+OutputName13=Ansoft Neutral (AutoPCB)
+OutputDocumentPath13=
+OutputVariantName13=
+OutputDefault13=0
+OutputType14=HyperLynx
+OutputName14=HyperLynx (AutoPCB)
+OutputDocumentPath14=
+OutputVariantName14=
+OutputDefault14=0
+OutputType15=Orcad v7 Capture Design
+OutputName15=Orcad v7 Capture Design (AutoSCH)
+OutputDocumentPath15=
+OutputVariantName15=
+OutputDefault15=0
+OutputType16=P-CAD ASCII
+OutputName16=P-CAD ASCII (AutoPCB)
+OutputDocumentPath16=
+OutputVariantName16=
+OutputDefault16=0
+OutputType17=P-CAD V16 Schematic Design
+OutputName17=P-CAD V16 Schematic Design (AutoSCH)
+OutputDocumentPath17=
+OutputVariantName17=
+OutputDefault17=0
+OutputType18=SiSoft
+OutputName18=SiSoft (AutoPCB)
+OutputDocumentPath18=
+OutputVariantName18=
+OutputDefault18=0
 
 [OutputGroup10]
 Name=PostProcess Outputs
@@ -1515,6 +1548,7 @@ Type122=2
 Type123=1
 Type124=1
 Type125=1
+Type126=1
 
 [ERC Connection Matrix]
 L1=NNNNNNNNNNNWNNNWW
