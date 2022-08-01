@@ -10,6 +10,8 @@ Buttons are designed for MSLA printing, and are assembled from 2 parts. The 'lig
 ### Enclsoure
 The enclosure is designed to be FDM/FFF printed with a standard 0.4mm nozzle in PLA. Print tolerances are somewhat critical here to avoid excess rotational slop in the buttons; ensure your extrusion multiplier is well tuned for your filament. Materials other than PLA may require compensation for shrinkage. 
 
+The top cover prints best with a single perimeter on the bottom layer; the text gets a bit difficult otherwise. There is a checkbox for this in SuperSlicer - Under Quality --> Only One Perimieter check the 'On First Layer' box. 
+
 There is a recess in the rear of the enclosure for a window in the same shape as the standard enclosure. It can be cut from acrylic and glued in from the rear, with the lip hiding any glue residue. 
 
 Holes for the fasteners that secure the lid are designed to accept heatset inserts of the Voron typical variety. The board is secured with self-tapping screws, as it is likely to be removed less often and it allows for more wiggle room for print tolerances.
