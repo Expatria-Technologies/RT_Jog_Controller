@@ -43,6 +43,10 @@ Some pre-release Jog2K systems used RJ45 connections, but all current and future
 
 Upon receipt of the Jogger, the small interface module should be snapped off from the main PCB.  This module is installed on the 5 and 4 pin QWIIC/I2C headers on the GRBLHAL2000 board.  The reason the module is included with the Jog2K is due to part availability challenges.  Different interface designs may be used as parts go in and out of stock, and therefore the interface module is included to ensure compatibility.
 
+Thank you to Jaymis from the PrintNC Discord for this awesome video showing some great soldering technique.
+
+[![Jog2K](https://img.youtube.com/vi/nImVRGaTyQw/0.jpg)](https://www.youtube.com/watch?v=nImVRGaTyQw)
+
 In addition to the interface module, the Jog2K requires a 0.93 or 0.96 inch I2C OLED screen and a Raspberry Pi Pico.  The Pico is installed on the bottom side of the board by soldering directly to the SMD pads, no headers are used.  The interior Pico pads do not need to be soldered from the bottom side.  Once the Pico is installed, flip the board over and apply a significant amount of solder and heat to the BOOTSEL hole on the top side.  This connects the boot select button to the Pico so that the firmware can easily be upgraded after the Jog2k is fully assembled.
 
 <img src="/readme_images/bootsel_location.jpg" width="400">
