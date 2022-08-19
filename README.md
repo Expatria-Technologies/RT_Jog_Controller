@@ -34,9 +34,9 @@ It is easiest to configure the macros in IOSender.
 
 Each macro is limited to 127 characters.  The macro on the spindle button has a special function.  When the spindle is off, the macro will run and it is intended to start up the spindle at a slow rate (the default value for this macro is 200 RPM).  When the spindle is running, activating the spindle macro button will send an M5 command to stop the spindle.  The primary use of this functionality is for manual edge-finding.
 
-## Cable Interface - 5 Gbps Link Cable Required.
+## Cable Interface - 5 Gbps Link Cable Required. Avoid E-Marker
 
-Some pre-release Jog2K systems used RJ45 connections, but all current and future releases will use USB-C connectors on both the Jog2K and the host interface module.  It is cricitical that the correct USBC cable is used.  Many USB-C cables do not have all of the conductors inside and these will not work with the Jog2k.  Always use a cable that is rated for USB-C display (5 Gbps data transfer) and 3A maximum current.  An Oculus Link cable is commonly available and works well.  These cables also have the advantage that they are usually high quality and well shielded.  Newer cables (Gen 2) that advertise power delivery will not work.
+Some pre-release Jog2K systems used RJ45 connections, but all current and future releases will use USB-C connectors on both the Jog2K and the host interface module.  It is cricitical that the correct USBC cable is used.  Many USB-C cables do not have all of the conductors inside and these will not work with the Jog2k.  Always use a cable that is rated for USB-C display (5 Gbps data transfer).  An Oculus Link cable is commonly available and works well.  These cables also have the advantage that they are usually high quality and well shielded.  Newer cables (Gen 2) that advertise power delivery will not work.
 
 
 ## Assembly
