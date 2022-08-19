@@ -36,7 +36,7 @@ Each macro is limited to 127 characters.  The macro on the spindle button has a 
 
 ## Cable Interface - 5 Gbps Link Cable Required.
 
-Some pre-release Jog2K systems used RJ45 connections, but all current and future releases will use USB-C connectors on both the Jog2K and the host interface module.  It is cricitical that the correct USBC cable is used.  Many USB-C cables do not have all of the conductors inside and these will not work with the Jog2k.  Always use a cable that is rated for USB-C display (5 Gbps data transfer) and 3A maximum current.  An Oculus Link cable is commonly available and works well.  These cables also have the advantage that they are usually high quality and well shielded.  Newer cables (Gen 2) that advertise 100W power delivery will not work.  In general USB 3.1 or 3.2 Gen 1 cables should work.
+Some pre-release Jog2K systems used RJ45 connections, but all current and future releases will use USB-C connectors on both the Jog2K and the host interface module.  It is cricitical that the correct USBC cable is used.  Many USB-C cables do not have all of the conductors inside and these will not work with the Jog2k.  Always use a cable that is rated for USB-C display (5 Gbps data transfer) and 3A maximum current.  An Oculus Link cable is commonly available and works well.  These cables also have the advantage that they are usually high quality and well shielded.  Newer cables (Gen 2) that advertise power delivery will not work.
 
 
 ## Assembly
