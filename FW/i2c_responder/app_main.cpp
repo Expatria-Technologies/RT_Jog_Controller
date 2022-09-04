@@ -24,7 +24,7 @@
 #include "hardware/timer.h"
 #include "hardware/gpio.h"
 #include "hardware/flash.h"
-#include "ss_oled.h"
+#include "OneBitDisplay.h"
 
 #include "pico/stdio.h"
 #include "pico/time.h"

@@ -12,8 +12,10 @@ add_subdirectory(i2c_slave)
 add_executable(app_main
 BitBang_I2C.cpp
 BitBang_I2C.h
-ss_oled.cpp
-ss_oled.h
+OneBitDisplay.cpp
+OneBitDisplay.h
+#ss_oled.cpp
+#ss_oled.h
 Adafruit_NeoPixel.cpp
 Adafruit_NeoPixel.hpp
 app_main.cpp)
