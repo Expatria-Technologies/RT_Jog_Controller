@@ -1,12 +1,12 @@
 Altium Designer Pick and Place Locations
-C:\Repo\I2C_Jog_Controller\PCBA\Project Outputs for I2C_Jog_Controller\I2C_Jog_Controller_UPLOAD_GERBERS_A4\Pick Place\I2C_Jog_Controller_CAM_OUTPUT_A4.csv
+C:\Repo\I2C_Jog_Controller\PCBA\Project Outputs for I2C_Jog_Controller\I2C_Jog_Controller_UPLOAD_GERBERS_A5\Pick Place\I2C_Jog_Controller_CAM_OUTPUT_A5.csv
 
 ========================================================================================================================
 File Design Information:
 
-Date:       11-05-22
-Time:       12:46
-Revision:   756272b5c3a2dec920317803a6332d19a71f0b4b
+Date:       29-08-22
+Time:       18:31
+Revision:   1c50980df4c48d2ba4fac37dddae427d9d429174
 Variant:    FULL_ASSEMBLY
 Units used: mm
 
@@ -178,7 +178,7 @@ Units used: mm
 "C1","40.2500","51.5000","TopLayer","180","0402_C"
 "Logo1","88.1457","10.3414","TopOverlay","0","Expatria-Logo"
 "RI_U9","44.9500","44.6250","TopLayer","90","SOIC-8_150mil"
-"U1","42.1250","28.1250","TopLayer","180","ADA-RGB-1655_V"
+"U1","45.0250","28.1250","TopLayer","180","ADA-RGB-1655_V"
 "RI_R16","49.8750","44.9250","TopLayer","270","0402_R"
 "RI_R15","39.7500","43.2500","TopLayer","90","0402_R"
 "R12","43.0000","6.0000","TopLayer","90","0402_R"
@@ -186,4 +186,4 @@ Units used: mm
 "C11","23.2500","75.5000","TopLayer","180","0402_C"
 "RI_C16","39.6750","46.6250","TopLayer","180","0402_C"
 "RI_C15","39.7500","45.1250","TopLayer","0","0402_C"
-"C2","47.3750","28.0000","TopLayer","270","0402_C"
+"C2","49.3750","28.0000","TopLayer","270","0402_C"
