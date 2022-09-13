@@ -1,4 +1,4 @@
-# Jog2K I2C Jog Controller for GRBLHAL2000
+# Jog2K I2C Jog Controller for GRBLHAL2000 and Flexi-HAL
 
 ![Logo](/readme_images/logo_sm.jpg)
 
