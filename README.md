@@ -1,10 +1,10 @@
-# Jog2K I2C Jog Controller for GRBLHAL2000 and Flexi-HAL
+# Jog2K Jog Controller for GRBLHAL2000 and Flexi-HAL
 
 ![Logo](/readme_images/logo_sm.jpg)
 
-Expatria Technologies I2C jog controller for GRBLHAL2000 boards
+Expatria Technologies jog controller for GRBLHAL2000 and Flexi-HAL boards
 
-This jog controller was developed for the GRLBHAL20000 board.  It is designed to be relatively inexpensive and simple to assemble.  It does not need any manual wiring and leverages 3d printable parts for assembly.  The system consists of a small interface module that is installed on the QWIIC/I2C headers on the Hal2000, plus a simple lighted button keypad that uses a Raspberry Pi Pico to send character commands to GRBLHAL and receive status information.  This pendant relies on the modified I2C Keypad plugin that was extended by Expatria Technologies:
+This jog controller was developed for the GRLBHAL20000 and Flexi-HAL boards.  It is designed to be relatively inexpensive and simple to assemble.  It does not need any manual wiring and leverages 3d printable parts for assembly.  The system consists of a small interface module that is installed on the QWIIC/I2C headers on the Hal2000, plus a simple lighted button keypad that uses a Raspberry Pi Pico to send character commands to GRBLHAL and receive status information.  This pendant relies on the modified I2C Keypad plugin that was extended by Expatria Technologies:
 
 https://github.com/Expatria-Technologies/Plugin_I2C_keypad
 
@@ -67,6 +67,9 @@ A window for the screen will need to be cut on your CNC from clear acrylic or po
 For current and future USB-C equipped Jog2K boards, the jog_bottom_box_slim should be used.  The previous model is included only for reference.
 
 <img src="/readme_images/unit_photo.jpg" width="400">
+
+## Screen
+Originally the Jog2K was designed to be used with a 0.96 inch OLED screen that was mounted to the PCB.  However, thanks to the PrintNC community, a new 3d printed enclsoure was developed that allows for the use of a 1.3 inch OLED that is mounted directly the the front panel.  This results in a significantly more readable display and is a massive upgrade over the original screen.  However, this means that some manual assemlby and soldering is required.  Updated STLs are in the Jog2K Deluxe Edition folder in this repo.
 
 ### Attributions
 This project uses components from the very helpful actiBMS library for JLCPCB SMT parts.
