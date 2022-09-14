@@ -12,7 +12,7 @@ The key features of the Jog2K:
 
 1) Immediate access to GRBLHAL jogging functionality and real-time commands
 2) DRO with selectable WCS
-3) Simple macro functionality
+3) Alternate button function macros
 
 ## Usage
 
