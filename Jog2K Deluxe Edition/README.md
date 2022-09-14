@@ -28,6 +28,8 @@ Holes for the fasteners that secure the lid are designed to accept heatset inser
 - Trim/deburr/clean up printed enclosure halves.
 - Install heat set inserts into the bottom half of the enclosure.
 - Insert buttons and lightpipes. Lightpipes are a fairly tight press fit. Some trimming of the holes may be required if the fit is too tight.
+- Align the screen and either heat-stake the plastic mounting pins or use the support bracket.
+- Connect screen to PCB via short wires or cable.
 - Align PCB with holes/captures
 - Insert M2.6 x 8mm self tapping screws and tighten
 - Flip cover over and ensure all buttons are operational. If any are stuck, loosen screws on PCB and adjust alignmnent slightly
