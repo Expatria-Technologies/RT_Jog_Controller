@@ -770,12 +770,12 @@ int rc = OLED_NOT_FOUND;
     rc = OLED_SH1107_3C;
     bFlip = !bFlip; // SH1107 seems to have this reversed from the usual direction
   }
-  else if (u == 0x8) // SH1106
+  else if (u == 0x8 || u == 0x0 || u == 0x6) // SH1106
   {
     rc = OLED_SH1106_3C;
     pOLED->oled_type = OLED_132x64; // needs to be treated a little differently
   }
-  else if (u == 3 || u == 6) // 6=128x64 display, 3=smaller
+  else if (u == 3 || u == 4) // 4=128x64 display, 3=smaller
   {
     rc = OLED_SSD1306_3C;
   }
