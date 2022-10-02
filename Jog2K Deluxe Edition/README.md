@@ -19,7 +19,7 @@ Holes for the fasteners that secure the lid are designed to accept heatset inser
 
 ### Hardware Required
 - 4x - M3 heatset inserts - 3 x 4 x 5mm - https://www.aliexpress.com/item/1005003286574326.html
-- 4x - M3 x 16mm flat head screws  - https://www.aliexpress.com/item/32965208731.html
+- 4x - M3 x 16mm flat head screws  - https://www.aliexpress.com/item/32965177647.html
 - 7x - M2.6 x 8mm self tapping screws - https://www.aliexpress.com/item/32970730241.html
 
 
