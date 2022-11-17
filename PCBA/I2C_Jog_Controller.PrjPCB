@@ -334,20 +334,20 @@ Path=..\libraries\*.*
 IncludeSubFolders=1
 
 [Parameter1]
-Name=VarRevNo
-Value=A6
-
-[Parameter2]
-Name=Title
+Name=PCBPARTNO
 Value=JOG_CONTROLLER
 
-[Parameter3]
+[Parameter2]
 Name=PCBREVNO
 Value=A6
 
-[Parameter4]
-Name=PCBPARTNO
+[Parameter3]
+Name=Title
 Value=JOG_CONTROLLER
+
+[Parameter4]
+Name=VarRevNo
+Value=A6
 
 [Configuration1]
 Name=Default Configuration
