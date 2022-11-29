@@ -1,6 +1,6 @@
 ![Logo](/readme_images/logo_sm.jpg)
 # Jog2K Jog Controller for GRBLHAL2000 and Flexi-HAL
-<img src="/readme_images/IMG_0091.jpg" width="800">
+<img src="/readme_images/IMG_0091.png" width="800">
 
 Expatria Technologies jog controller for GRBLHAL2000 and Flexi-HAL boards
 
