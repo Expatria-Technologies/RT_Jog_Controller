@@ -1,6 +1,6 @@
-# Jog2K Jog Controller for GRBLHAL2000 and Flexi-HAL
-
 ![Logo](/readme_images/logo_sm.jpg)
+# Jog2K Jog Controller for GRBLHAL2000 and Flexi-HAL
+<img src="/readme_images/IMG_0091.jpg" width="800">
 
 Expatria Technologies jog controller for GRBLHAL2000 and Flexi-HAL boards
 
@@ -53,7 +53,7 @@ Thank you to [Jaymis](https://jaymis.com/) from the PrintNC Discord for this awe
 
 [![Jog2K](https://img.youtube.com/vi/nImVRGaTyQw/0.jpg)](https://www.youtube.com/watch?v=nImVRGaTyQw)
 
-In addition to the interface module, the Jog2K requires a 0.93 or 0.96 inch I2C OLED screen and a Raspberry Pi Pico.  The Pico is installed on the bottom side of the board by soldering directly to the SMD pads, no headers are used.  The interior Pico pads do not need to be soldered from the bottom side.  Once the Pico is installed, flip the board over and apply a significant amount of solder and heat to the BOOTSEL hole on the top side.  This connects the boot select button to the Pico so that the firmware can easily be upgraded after the Jog2k is fully assembled.
+In addition to the interface module, the Jog2K requires a 0.96 or 1.3 inch I2C OLED screen.  The current A6 revision of the board uses a discrete RP2040 MCU.  If you wish to use the older board based on the Pi Pico, the A5 files are archived.
 
 <img src="/readme_images/bootsel_location.jpg" width="400">
 
