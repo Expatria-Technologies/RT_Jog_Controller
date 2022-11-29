@@ -47,6 +47,8 @@ Some pre-release Jog2K systems used RJ45 connections, but all current and future
 
 ## Assembly
 
+Most users choose to assemble the Jog2K Deluxe edition of the mechanical design.  These are a series of community updates that increase the polish and legibility of the Jog2K.
+
 Upon receipt of the Jogger, the small interface module should be snapped off from the main PCB if it is not already.  This module is installed on the 5 and 4 pin QWIIC/I2C headers on the GRBLHAL2000 or Flexi-HAL board.  The reason the module is included with the Jog2K is due to part availability challenges.  Different interface designs may be used as parts go in and out of stock, and therefore the interface module is included to ensure compatibility.
 
 Thank you to [Jaymis](https://jaymis.com/) from the PrintNC Discord for this awesome video showing some great soldering technique.
@@ -55,15 +57,9 @@ Thank you to [Jaymis](https://jaymis.com/) from the PrintNC Discord for this awe
 
 In addition to the interface module, the Jog2K requires a 0.96 or 1.3 inch I2C OLED screen.  The current A6 revision of the board uses a discrete RP2040 MCU.  If you wish to use the older board based on the Pi Pico, the A5 files are archived.
 
-<img src="/readme_images/bootsel_location.jpg" width="400">
-
 Ensure that your oled screen pinout matches the pinout labelled on the jogger PCBA.
 
 <img src="/readme_images/screen_pinout.jpg" width="300">
-
-Install the OLED in the 4 pin header location and try to keep it straight when soldering.
-
-<img src="/readme_images/screen_install.jpg" width="400">
 
 Once the PCBA is fully assembled simply print the buttons in clear PETG so that the neopixel functions are visible.  The shift, coolant and override buttons are not backlit and can be printed in black or other suitable colors. For these functions, there are lightpipe models provided.  Finally there are two smaller buttons for BOOTSEL and RESET.
 
