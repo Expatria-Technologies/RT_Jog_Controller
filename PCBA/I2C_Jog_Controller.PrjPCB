@@ -285,7 +285,24 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=
+DocumentUniqueId=MLNMXIAE
+
+[Document15]
+DocumentPath=Schematic\RP2040_MCU.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=25
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=GXJKOQLP
 
 [ProjectVariant1]
 UniqueID=9DCABE77-EFE4-4C17-BE88-8CE971FF8048
@@ -317,20 +334,20 @@ Path=..\libraries\*.*
 IncludeSubFolders=1
 
 [Parameter1]
-Name=VarRevNo
-Value=A5
+Name=PCBPARTNO
+Value=JOG_CONTROLLER
 
 [Parameter2]
+Name=PCBREVNO
+Value=A6
+
+[Parameter3]
 Name=Title
 Value=JOG_CONTROLLER
 
-[Parameter3]
-Name=PCBREVNO
-Value=A5
-
 [Parameter4]
-Name=PCBPARTNO
-Value=JOG_CONTROLLER
+Name=VarRevNo
+Value=A6
 
 [Configuration1]
 Name=Default Configuration
