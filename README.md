@@ -1,6 +1,6 @@
-# Jog2K Jog Controller for GRBLHAL2000 and Flexi-HAL
-
 ![Logo](/readme_images/logo_sm.jpg)
+# Jog2K Jog Controller for GRBLHAL2000 and Flexi-HAL
+<img src="/readme_images/IMG_0091.png" width="800">
 
 Expatria Technologies jog controller for GRBLHAL2000 and Flexi-HAL boards
 
@@ -40,37 +40,28 @@ It is easiest to configure the macros in IOSender.
 
 Each macro is limited to 127 characters.  The macro on the spindle button has a special function.  When the spindle is off, the macro will run and it is intended to start up the spindle at a slow rate (the default value for this macro is 200 RPM).  When the spindle is running, activating the spindle macro button will send an M5 command to stop the spindle.  The primary use of this functionality is for manual edge-finding.
 
-## Cable Interface - 5 Gbps Link Cable Required. Avoid E-Marker
+## Cable Interface - 5 Gbps Link Cable Required.
 
-Some pre-release Jog2K systems used RJ45 connections, but all current and future releases will use USB-C connectors on both the Jog2K and the host interface module.  It is cricitical that the correct USBC cable is used.  Many USB-C cables do not have all of the conductors inside and these will not work with the Jog2k.  Always use a cable that is rated for USB-C display (5 Gbps data transfer).  An Oculus Link cable is commonly available and works well.  These cables also have the advantage that they are usually high quality and well shielded.  Newer cables (Gen 2) that advertise power delivery will not work.
+Some pre-release Jog2K systems used RJ45 connections, but all current and future releases will use USB-C connectors on both the Jog2K and the host interface module.  It is cricitical that the correct USBC cable is used.  Many USB-C cables do not have all of the conductors inside and these will not work with the Jog2k.  Always use a cable that is rated for USB-C display (5 Gbps data transfer).  An Oculus Link cable is commonly available and works well.  These cables also have the advantage that they are usually high quality and well shielded.
 
 
 ## Assembly
 
-Upon receipt of the Jogger, the small interface module should be snapped off from the main PCB.  This module is installed on the 5 and 4 pin QWIIC/I2C headers on the GRBLHAL2000 or Flexi-HAL board.  The reason the module is included with the Jog2K is due to part availability challenges.  Different interface designs may be used as parts go in and out of stock, and therefore the interface module is included to ensure compatibility.
+Most users choose to assemble the Jog2K Deluxe edition of the mechanical design.  These are a series of community updates that increase the polish and legibility of the Jog2K.
+
+Upon receipt of the Jogger, the small interface module should be snapped off from the main PCB if it is not already.  This module is installed on the 5 and 4 pin QWIIC/I2C headers on the GRBLHAL2000 or Flexi-HAL board.  The reason the module is included with the Jog2K is due to part availability challenges.  Different interface designs may be used as parts go in and out of stock, and therefore the interface module is included to ensure compatibility.
 
 Thank you to [Jaymis](https://jaymis.com/) from the PrintNC Discord for this awesome video showing some great soldering technique.
 
 [![Jog2K](https://img.youtube.com/vi/nImVRGaTyQw/0.jpg)](https://www.youtube.com/watch?v=nImVRGaTyQw)
 
-In addition to the interface module, the Jog2K requires a 0.93 or 0.96 inch I2C OLED screen and a Raspberry Pi Pico.  The Pico is installed on the bottom side of the board by soldering directly to the SMD pads, no headers are used.  The interior Pico pads do not need to be soldered from the bottom side.  Once the Pico is installed, flip the board over and apply a significant amount of solder and heat to the BOOTSEL hole on the top side.  This connects the boot select button to the Pico so that the firmware can easily be upgraded after the Jog2k is fully assembled.
-
-<img src="/readme_images/bootsel_location.jpg" width="400">
-
+In addition to the interface module, the Jog2K requires a 0.96 or 1.3 inch I2C OLED screen.  The current A6 revision of the board uses a discrete RP2040 MCU.  If you wish to use the older board based on the Pi Pico, the A5 files are archived.
 
 Ensure that your oled screen pinout matches the pinout labelled on the jogger PCBA.
 
 <img src="/readme_images/screen_pinout.jpg" width="300">
 
-Install the OLED in the 4 pin header location and try to keep it straight when soldering.
-
-<img src="/readme_images/screen_install.jpg" width="400">
-
 Once the PCBA is fully assembled simply print the buttons in clear PETG so that the neopixel functions are visible.  The shift, coolant and override buttons are not backlit and can be printed in black or other suitable colors. For these functions, there are lightpipe models provided.  Finally there are two smaller buttons for BOOTSEL and RESET.
-
-A window for the screen will need to be cut on your CNC from clear acrylic or polycarbonate.
-
-For current and future USB-C equipped Jog2K boards, the jog_bottom_box_slim should be used.  The previous model is included only for reference.
 
 <img src="/readme_images/unit_photo.jpg" width="400">
 
