@@ -51,10 +51,6 @@ Most users choose to assemble the Jog2K Deluxe edition of the mechanical design.
 
 Upon receipt of the Jogger, the small interface module should be snapped off from the main PCB if it is not already.  This module is installed on the 5 and 4 pin QWIIC/I2C headers on the GRBLHAL2000 or Flexi-HAL board.  The reason the module is included with the Jog2K is due to part availability challenges.  Different interface designs may be used as parts go in and out of stock, and therefore the interface module is included to ensure compatibility.
 
-Thank you to [Jaymis](https://jaymis.com/) from the PrintNC Discord for this awesome video showing some great soldering technique.
-
-[![Jog2K](https://img.youtube.com/vi/nImVRGaTyQw/0.jpg)](https://www.youtube.com/watch?v=nImVRGaTyQw)
-
 In addition to the interface module, the Jog2K requires a 0.96 or 1.3 inch I2C OLED screen.  The current A6 revision of the board uses a discrete RP2040 MCU.  If you wish to use the older board based on the Pi Pico, the A5 files are archived.
 
 Ensure that your oled screen pinout matches the pinout labelled on the jogger PCBA.
