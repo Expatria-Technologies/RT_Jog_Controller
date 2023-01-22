@@ -47,7 +47,7 @@ Some pre-release Jog2K systems used RJ45 connections, but all current and future
 
 ## Assembly
 
-Most users choose to assemble the Jog2K Deluxe edition of the mechanical design.  These are a series of community updates that increase the polish and legibility of the Jog2K.
+Most users choose to assemble the [Jog2k Deluxe](https://github.com/Expatria-Technologies/Mods-Accessories/blob/main/Expatria/Jog2K_Deluxe) edition of the mechanical design.  These are a series of community updates that increase the polish and legibility of the Jog2K.
 
 Upon receipt of the Jogger, the small interface module should be snapped off from the main PCB if it is not already.  This module is installed on the 5 and 4 pin QWIIC/I2C headers on the GRBLHAL2000 or Flexi-HAL board.  The reason the module is included with the Jog2K is due to part availability challenges.  Different interface designs may be used as parts go in and out of stock, and therefore the interface module is included to ensure compatibility.
 
@@ -62,7 +62,7 @@ Once the PCBA is fully assembled simply print the buttons in clear PETG so that 
 <img src="/readme_images/unit_photo.jpg" width="400">
 
 ## Screen
-Originally the Jog2K was designed to be used with a 0.96 inch OLED screen that was mounted to the PCB.  However, thanks to the PrintNC community, a new 3d printed enclsoure was developed that allows for the use of a 1.3 inch OLED that is mounted directly the the front panel.  This results in a significantly more readable display and is a massive upgrade over the original screen.  However, this means that some manual assemlby and soldering is required.  Updated STLs are in the Jog2K Deluxe Edition folder in this repo.
+Originally the Jog2K was designed to be used with a 0.96 inch OLED screen that was mounted to the PCB.  However, thanks to the PrintNC community, a new 3d printed enclsoure was developed that allows for the use of a 1.3 inch OLED that is mounted directly the the front panel.  This results in a significantly more readable display and is a massive upgrade over the original screen.  However, this means that some manual assemlby and soldering is required.  Updated STLs are in the Jog2K Deluxe folder in the [Mods & Accessories](https://github.com/Expatria-Technologies/Mods-Accessories/) repo.
 
 ### Attributions
 This project uses components from the very helpful actiBMS library for JLCPCB SMT parts.
