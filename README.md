@@ -44,6 +44,8 @@ Each macro is limited to 127 characters.  The macro on the spindle button has a 
 
 Some pre-release Jog2K systems used RJ45 connections, but all current and future releases will use USB-C connectors on both the Jog2K and the host interface module.  It is cricitical that the correct USBC cable is used.  Many USB-C cables do not have all of the conductors inside and these will not work with the Jog2k.  Always use a cable that is rated for USB-C display (5 Gbps data transfer).  An Oculus Link cable is commonly available and works well.  These cables also have the advantage that they are usually high quality and well shielded.
 
+Please note that on A4 and earlier revisions of the PCB, e-marker cables do not work.
+
 
 ## Assembly
 
