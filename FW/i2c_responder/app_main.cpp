@@ -912,7 +912,7 @@ draw_main_screen(1);
         } else if (gpio_get(HOLDBUTTON)){
           pixels.setPixelColor(HOLDLED,pixels.Color(0, 0, 0));
           if(!jog_toggle_pressed){             
-          key_character = CMD_FEED_HOLD_LEGACY;
+          key_character = CMD_FEED_HOLD ;
           keypad_sendchar(key_character, 1, 1);
           }
           while(gpio_get(HOLDBUTTON))
@@ -922,7 +922,7 @@ draw_main_screen(1);
         } else if (gpio_get(RUNBUTTON)){
           pixels.setPixelColor(RUNLED,pixels.Color(0, 0, 0));
           if(!jog_toggle_pressed){             
-          key_character = CMD_CYCLE_START_LEGACY;
+          key_character = CMD_CYCLE_START ;
           keypad_sendchar(key_character, 1, 1);
           }
           while(gpio_get(RUNBUTTON))

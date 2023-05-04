@@ -75,16 +75,16 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define STATUS_REQUEST_PERIOD 100
 
 //ACTION DEFINES
-#define MACROUP 0x18
-#define MACRODOWN 0x19
-#define MACROLEFT 0x1B
-#define MACRORIGHT 0x1A
-#define MACROLOWER  0x7D
-#define MACRORAISE 0x7C
-#define MACROHOME  0x8E
-#define RESET  0x7F
-#define UNLOCK 0x80
-#define SPINON 0x81
+#define MACROUP 0x18  //MACRO_KEY0
+#define MACRODOWN 0x19 //MACRO_KEY1
+#define MACROLEFT 0x1B //MACRO_KEY2
+#define MACRORIGHT 0x1A //MACRO_KEY3
+#define MACROLOWER  0x7D //MACRO_KEY4
+#define MACRORAISE 0x7C //MACRO_KEY5
+#define MACROHOME  0x7E //MACRO_KEY6
+#define RESET  0x18
+#define UNLOCK 'X'
+#define SPINON 0x7F //MACRO_KEY7
 
 #define UP 0
 #define RIGHT 1
@@ -127,9 +127,9 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define CHAR_AL   'a'
 
 #define CMD_STATUS_REPORT_LEGACY '?'
-#define CMD_CYCLE_START_LEGACY '~'
-#define CMD_FEED_HOLD_LEGACY '!'
-
+#define CMD_CYCLE_START 0x81   // TODO: use 0x06 ctrl-F ACK instead? or SYN/DC2/DC3?
+#define CMD_FEED_HOLD 0x82     // TODO: use 0x15 ctrl-U NAK instead?
+#define CMD_RESET 0x18 // ctrl-X (CAN)
 #define CMD_SAFETY_DOOR 0x84
 #define CMD_OVERRIDE_FAN0_TOGGLE 0x8A       // Toggle Fan 0 on/off, not implemented by the core.
 #define CMD_MPG_MODE_TOGGLE 0x8B            // Toggle MPG mode on/off, not implemented by the core.
