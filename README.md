@@ -26,6 +26,13 @@ The key features of the Jog2K:
 
 Many of the buttons on the Jog2K have alternate functions that are accessed via the SHIFT/FUNCTION button.  The XYZ jog buttons give access to the configurable macros.  In the event that a 4th axis is enabled in GRBLHAL, the macro functions of the Z axis buttons are lost and the alternate function for those buttons changes to jogging the A axis.
 
+When used with GRBLHAL, always ensure that "limit jog commands" is true (not like above image) and ensure that the soft limits are properly configured and enabled for your machine.  There are 3 modes:
+1) Fast mode continuous jogging.  Machine will jog at the $50 speed until it either travels the $55 fast jog distance or hits the machine limit
+2) Slow mode continuous jogging.  Machine will jog at the $51 slower speed until it either travels the $54 slow jog distance or hits the machine limit
+3) Step jog mode.  Machine will travel the $53 distance (or to machine limit) and stop.  Usually this step is quite small so the $50 step jog speed isn't relevant, but it is still configurable.
+
+Note that the machine will always stop any move if you lift the button.  This can mean that at large steps with a slow speed it does not complete if you do not hold the button down.
+
 The alternate fuctions for the Mist and Flood buttons control the current jog mode and rate.  The Shift-Mist button toggles between Fast, Slow and step modes (these are configurable in IOSender).  The Shift-Flood button will change the decimal place of the current jog mode.
 
 The Shift-HOME function will toggle between the active WCS: G54, G55 etc.
