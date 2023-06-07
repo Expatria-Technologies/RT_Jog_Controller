@@ -20,6 +20,13 @@ The key features of the Jog2K:
 2) DRO with selectable WCS
 3) Alternate button function macros
 
+## Jog 2k Slim 1.3
+<img src="/readme_images/Jog2K_Slim.png" width="400">
+Check out the awesome community mod for the Jog2K using an upgraded 1.3 inch OLED and slimmer enclosure design:
+
+https://github.com/Expatria-Technologies/Mods-Accessories/tree/main/Expatria/Jog2K_Deluxe
+
+
 ## Usage
 
 <img src="/readme_images/buttonmap.jpg" width="400">
