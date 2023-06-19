@@ -4,7 +4,7 @@
 
 Expatria Technologies jog controller for GRBLHAL2000 and Flexi-HAL boards
 
-Assembled PCBS currently available in our online store:
+Assembled PCBs currently available in our online store:
 
 https://expatria.myshopify.com/products/jog2k-keypad-pendant-pcba
 
