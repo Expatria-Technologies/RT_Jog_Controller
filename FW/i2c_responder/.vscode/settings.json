@@ -19,6 +19,9 @@
     "cmake.buildBeforeRun": true,
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "files.associations": {
-        "ss_oled.h": "c"
+        "ss_oled.h": "c",
+        "compare": "cpp",
+        "limits": "cpp",
+        "new": "cpp"
     }
 }
