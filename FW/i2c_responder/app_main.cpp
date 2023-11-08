@@ -533,7 +533,7 @@ static void draw_main_screen(bool force){
           }
         }          
 
-        oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);            
+        oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);            
 
         sprintf(charbuf, "S:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
         oledWriteString(&oled, 0,0,BOTTOMLINE,charbuf, FONT_6x8, 0, 1);
@@ -1213,7 +1213,7 @@ draw_main_screen(1);
           if (gpio_get(SPINDLEBUTTON)){}//button is still pressed, do nothing
           else{
             if(!jog_toggle_pressed){
-            key_character = 0x9E;
+            key_character = SPINOFF;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             }

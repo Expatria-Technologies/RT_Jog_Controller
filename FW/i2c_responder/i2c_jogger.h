@@ -84,7 +84,8 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define MACROHOME  0x8E
 #define RESET  0x7F
 #define UNLOCK 0x80
-#define SPINON 0x81
+#define SPINON 0x7D // TEMP MOD FOR GUIDE LASER OFF
+#define SPINOFF 0x7C // TEMP MOD FOR GUIDE LASER ON
 
 #define UP 0
 #define RIGHT 1
