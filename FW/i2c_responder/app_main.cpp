@@ -100,10 +100,14 @@ uint8_t key_character = '\0';
 
 uint8_t feed_up_pressed = 0;
 uint8_t feed_down_pressed = 0;
+uint8_t feed_up_fine_pressed = 0;
+uint8_t feed_down_fine_pressed = 0;
 uint8_t feed_reset_pressed = 0;
 
 uint8_t spin_up_pressed = 0;
 uint8_t spin_down_pressed = 0;
+uint8_t spin_up_fine_pressed = 0;
+uint8_t spin_down_fine_pressed = 0;
 uint8_t spin_reset_pressed = 0;
 
 uint8_t jog_mod_pressed = 0;
@@ -535,7 +539,7 @@ static void draw_main_screen(bool force){
 
         oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);            
 
-        sprintf(charbuf, "S:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
+        sprintf(charbuf, "P:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
         oledWriteString(&oled, 0,0,BOTTOMLINE,charbuf, FONT_6x8, 0, 1);
         //this is the RPM number
         sprintf(charbuf, "%5d", packet->spindle_rpm);
@@ -573,9 +577,9 @@ static void draw_main_screen(bool force){
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);            
           }         
 
-          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);          
+          oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);          
 
-          sprintf(charbuf, "S:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
+          sprintf(charbuf, "P:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
           oledWriteString(&oled, 0,0,BOTTOMLINE,charbuf, FONT_6x8, 0, 1);
           //this is the RPM number
           sprintf(charbuf, "%5d", packet->spindle_rpm);
@@ -604,9 +608,9 @@ static void draw_main_screen(bool force){
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);            
           }           
 
-          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);            
+          oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);            
 
-          sprintf(charbuf, "S:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
+          sprintf(charbuf, "P:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
           oledWriteString(&oled, 0,0,BOTTOMLINE,charbuf, FONT_6x8, 0, 1);
           //this is the RPM number
           sprintf(charbuf, "%5d", packet->spindle_rpm);
@@ -930,15 +934,23 @@ draw_main_screen(1);
           gpio_put(KPSTR_PIN, false);    
         //misc commands.  These activate on lift
         } else if (gpio_get(SPINOVER_UP)){  
-          spin_up_pressed = 1;            
-        } else if (gpio_get(SPINOVER_DOWN)){  
-          spin_down_pressed = 1;
+          if(!jog_toggle_pressed){    
+            spin_up_pressed = 1;
+          }            
+        } else if (gpio_get(SPINOVER_DOWN)){
+          if(!jog_toggle_pressed){    
+            spin_down_pressed = 1;
+          }
         } else if (gpio_get(SPINOVER_RESET)){  
           spin_reset_pressed = 1; 
-        } else if (gpio_get(FEEDOVER_UP)){ 
-          feed_up_pressed = 1;    
-        } else if (gpio_get(FEEDOVER_DOWN)){ 
-          feed_down_pressed = 1;            
+        } else if (gpio_get(FEEDOVER_UP)){
+          if(!jog_toggle_pressed){    
+            feed_up_pressed = 1;
+          }    
+        } else if (gpio_get(FEEDOVER_DOWN)){
+          if(!jog_toggle_pressed){     
+            feed_down_pressed = 1;
+          }            
         } else if (gpio_get(FEEDOVER_RESET)){  
           feed_reset_pressed = 1;              
         } else if (gpio_get(HOMEBUTTON)){  
@@ -1113,7 +1125,19 @@ draw_main_screen(1);
             }
             if (gpio_get(HALTBUTTON)){
               halt_pressed = 1;              
-            }                                                                                                                                       
+            }
+            if (gpio_get(SPINOVER_UP)){  
+              spin_up_fine_pressed = 1;            
+            }
+            if (gpio_get(SPINOVER_DOWN)){  
+              spin_down_fine_pressed = 1;
+            }
+            if (gpio_get(FEEDOVER_UP)){ 
+              feed_up_fine_pressed = 1;    
+            }
+            if (gpio_get(FEEDOVER_DOWN)){ 
+              feed_down_fine_pressed = 1;            
+            }                                                                                                                    
           }//close jog toggle pressed.
         }//close jog button pressed statement
 //Single functions ***********************************************************************
@@ -1385,6 +1409,46 @@ draw_main_screen(1);
             unlock_pressed = 0;
             sleep_ms(10);
             update_neopixels();
+        }}
+        if (feed_down_fine_pressed) {
+          if (gpio_get(FEEDOVER_DOWN)){}//button is still pressed, do nothing
+          else{
+            key_character = 0x94;
+            keypad_sendchar (key_character, 1, 1);
+            gpio_put(ONBOARD_LED,1);
+            feed_down_fine_pressed = 0;
+            sleep_ms(10);
+            update_neopixels();                       
+         }}
+        if (feed_up_fine_pressed) {
+          if (gpio_get(FEEDOVER_UP)){}//button is still pressed, do nothing
+          else{
+            key_character = 0x93;
+            keypad_sendchar (key_character, 1, 1);
+            gpio_put(ONBOARD_LED,1);
+            feed_up_fine_pressed = 0;
+            sleep_ms(10);
+            update_neopixels();                
+        }}
+        if (spin_down_fine_pressed) {
+          if (gpio_get(SPINOVER_DOWN)){}//button is still pressed, do nothing
+          else{
+            key_character = 0x9D;
+            keypad_sendchar (key_character, 1, 1);
+            gpio_put(ONBOARD_LED,1);
+            spin_down_fine_pressed = 0;
+            sleep_ms(10);
+            update_neopixels();           
+        }}
+        if (spin_up_fine_pressed) {
+          if (gpio_get(SPINOVER_UP)){}//button is still pressed, do nothing
+          else{
+            key_character = 0x9C;
+            keypad_sendchar (key_character, 1, 1);
+            gpio_put(ONBOARD_LED,1);
+            spin_up_fine_pressed = 0;
+            sleep_ms(10);
+            update_neopixels();         
         }}  
         if (halt_pressed){
           if (gpio_get(HALTBUTTON)){
