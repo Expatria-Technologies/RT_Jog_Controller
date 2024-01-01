@@ -25,6 +25,9 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define STATE_HOMING        6 //!< Performing homing cycle
 #define STATE_JOG           7 //!< Jogging mode.
 
+#define STATE_RESET         128 //!< Screen set when reset is issued.
+#define STATE_DISCONNECTED  255
+
 #define OLED_WIDTH 128
 #define OLED_HEIGHT 64
 
@@ -82,9 +85,9 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define MACROLOWER  0x7D //MACRO_KEY4
 #define MACRORAISE 0x7C //MACRO_KEY5
 #define MACROHOME  0x7E //MACRO_KEY6
-#define RESET  0x18
-#define UNLOCK 'X'
-#define SPINON 0x7F //MACRO_KEY7
+#define RESET  0x7F
+#define UNLOCK 0x80
+#define SPINON 0x83
 
 #define UP 0
 #define RIGHT 1

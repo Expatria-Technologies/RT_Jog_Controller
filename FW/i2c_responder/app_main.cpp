@@ -138,7 +138,7 @@ Machine_status_packet prev_packet;
 Machine_status_packet *previous_packet = &prev_packet;
 Jogmode previous_jogmode;
 Jogmodify previous_jogmodify;
-ScreenMode previous_screenmode;
+ScreenMode previous_screenmode = DEFAULT;
 
 char *ram_ptr = (char*) &context.mem[0];
 int character_sent;
@@ -343,8 +343,8 @@ static void update_neopixels(void){
     case STATE_ALARM :
           //handle alarm state at bottom
       jog_color[0] = 0; jog_color[1] = 0; jog_color[2] = 0; //RGB
-      run_color[0] = 255; run_color[1] = 0; run_color[2] = 0; //RGB
-      hold_color[0] = 255; hold_color[1] = 0; hold_color[2] = 0; //RGB   
+      //run_color[0] = 255; run_color[1] = 0; run_color[2] = 0; //RGB
+      //hold_color[0] = 255; hold_color[1] = 0; hold_color[2] = 0; //RGB   
       halt_color[0] = 255; halt_color[1] = 0; halt_color[2] = 0; //RGB 
 
       //also override above colors for maximum alarm 
@@ -650,6 +650,7 @@ static void draw_main_screen(bool force){
         break; //close tool case
 
         case STATE_HOMING : //no overrides during homing
+          if( (prev_packet.machine_state != packet->machine_state) )
           oledFill(&oled, 0,1);
           oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
@@ -658,16 +659,33 @@ static void draw_main_screen(bool force){
         break; //close home case
 
         case STATE_ALARM : //no overrides during homing
-          oledFill(&oled, 0,1);
+          //only re-fill the screen if the state or alarm code have changed.
+          if( (prev_packet.alarm != packet->alarm) || (prev_packet.machine_state != packet->machine_state) )
+            oledFill(&oled, 0,1);
           oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
           //no jog during hold
           oledWriteString(&oled, 0,0,3,(char *)"ALARM", JOGFONT, 0, 1);
           sprintf(charbuf, "Code: %d ", packet->alarm);
           oledWriteString(&oled, 0,0,4,charbuf, INFOFONT, 0, 1);        
-        break; //close home case                               
-        default :
+        break; //close alarm case
 
+        case STATE_RESET : //no overrides during homing
+        oledFill(&oled, 0,1);
+          oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
+          oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
+          //no jog during hold
+          oledWriteString(&oled, 0,0,3,(char *)"RESETTING", JOGFONT, 0, 1);
+          sprintf(charbuf, "CONTROLLER", packet->alarm);
+          oledWriteString(&oled, 0,0,4,charbuf, INFOFONT, 0, 1);        
+        break; //close reset case                                      
+        default :
+          if( (prev_packet.machine_state != packet->machine_state) )
+          oledFill(&oled, 0,1);
+          oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
+          oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
+          //no jog during hold
+          oledWriteString(&oled, 0,0,4,(char *)"NO CONNECTION", JOGFONT, 0, 1);
         break; //close default case
       }//close machine_state switch statement
   }//close screen mode switch statement
@@ -839,7 +857,7 @@ int main() {
 
 // Setup I2C0 as slave (peripheral)
 setup_slave();
-packet->machine_state = 255;
+packet->machine_state = STATE_DISCONNECTED;
 key_character = CMD_STATUS_REPORT_LEGACY;
 keypad_sendchar (key_character, 1, 1);
 status_update_counter = STATUS_REQUEST_PERIOD;
@@ -897,7 +915,7 @@ draw_main_screen(1);
           update_neopixels();
         }
 
-        if (update_neopixel_leds){
+        if (update_neopixel_leds && (packet->machine_state != STATE_DISCONNECTED) ){
           if(context.mem_address >= sizeof(Machine_status_packet))          
             update_neopixels();
           update_neopixel_leds = 0;
@@ -907,8 +925,8 @@ draw_main_screen(1);
         if(gpio_get(HALTBUTTON)){
           pixels.setPixelColor(HALTLED,pixels.Color(0, 0, 0));        
           key_character = 0x18;
-          while(gpio_get(HALTBUTTON))
-            sleep_ms(250);     
+          //while(gpio_get(HALTBUTTON))
+          //  sleep_ms(250);     
         } else if (gpio_get(HOLDBUTTON)){
           pixels.setPixelColor(HOLDLED,pixels.Color(0, 0, 0));
           if(!jog_toggle_pressed){             
@@ -1357,6 +1375,9 @@ draw_main_screen(1);
             gpio_put(ONBOARD_LED,1);
             reset_pressed = 0;
             sleep_ms(10);
+            packet->machine_state = STATE_RESET;
+            draw_main_screen(1);
+            sleep_ms(500);            
             update_neopixels();
         }}
         if (unlock_pressed){
@@ -1371,19 +1392,28 @@ draw_main_screen(1);
         }}  
         if (halt_pressed){
           if (gpio_get(HALTBUTTON)){
-            pixels.setPixelColor(HALTLED,pixels.Color(halt_color[0], halt_color[1], halt_color[2]));
+            pixels.setPixelColor(HALTLED,pixels.Color(0,255,0));
             pixels.show();
           }//button is still pressed, do nothing
           else{
             //erase and write memory location based on current value of screenflip.
+            
+            pixels.setPixelColor(HALTLED,pixels.Color(255,255,0));
+            pixels.show();
+            sleep_ms(250);
             screenflip = !screenflip;
             uint32_t status = save_and_disable_interrupts();
             flash_range_erase(FLASH_TARGET_OFFSET, FLASH_SECTOR_SIZE);
+            
             restore_interrupts(status);
             sleep_ms(250);
             flash_range_program(FLASH_TARGET_OFFSET, (uint8_t*)&screenflip, 1);
-          halt_pressed = 0;
-          update_neopixels();
+            halt_pressed = 0;
+            //update_neopixels();
+
+            #define AIRCR_Register (*((volatile uint32_t*)(PPB_BASE + 0x0ED0C)))
+
+            AIRCR_Register = 0x5FA0004;
         }}                                                                                                                                                  
     }//close main while loop
     return 0;
