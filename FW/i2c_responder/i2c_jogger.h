@@ -1,6 +1,8 @@
 #ifndef __I2C_JOGGER_H__
 #define __I2C_JOGGER_H__
 
+#define VERSION "KEYPAD v1.4"
+
 // Which pin on the Arduino is connected to the NeoPixels?
 #define PIN        22 // On Trinket or Gemma, suggest changing this to 1
 // How many NeoPixels are attached to the Arduino?

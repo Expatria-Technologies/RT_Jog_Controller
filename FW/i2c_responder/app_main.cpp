@@ -874,7 +874,8 @@ oledSetBackBuffer(&oled, ucBuffer);
 oledFill(&oled, 0,1);
 oledWriteString(&oled, 0,0,1,(char *)"GRBLHAL", FONT_12x16, 0, 1);
 oledWriteString(&oled, 0,0,4,(char *)"I2C JOGGER", FONT_12x16, 0, 1);
-sleep_ms(750);
+oledWriteString(&oled, 0,0,7,(char *)VERSION, FONT_6x8, 0, 1);
+sleep_ms(1000);
 oledFill(&oled, 0,1);
 
 draw_main_screen(1);
