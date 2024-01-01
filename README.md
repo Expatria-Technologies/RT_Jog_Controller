@@ -48,7 +48,7 @@ The Shift-HOLD function will issue a soft reset to the controller.  This is usua
 
 The Shift-RUN function will issue an Unlock command to the controller.  This is usually used as part of exiting the ESTOP state.  Note that this will stop any executing program or motion.
 
-The HALT button has an alternate function which is to flip the OLED screen vertically.  There is no standard orientation for these screens so if yours is upside-down after installation, simply activate the screen flip.  The screen orientation is stored in NVM.  This flip function takes at least 500ms to execute.
+The HALT button has an alternate function which is to flip the OLED screen vertically.  There is no standard orientation for these screens so if yours is upside-down after installation, simply activate the screen flip.  The screen orientation is stored in NVM.  The Jog2K should reset automatically around 2s after the command is issued.
 
 ## Macros
 
