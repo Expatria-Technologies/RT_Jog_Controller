@@ -26,9 +26,23 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define STATE_IDLE          5 //!< Must be zero. No flags.
 #define STATE_HOMING        6 //!< Performing homing cycle
 #define STATE_JOG           7 //!< Jogging mode.
+#define STATE_RESET         8 //!< Screen set when reset is issued.
+                 
+#define NORMAL_MODE         0
+#define LASER_MODE          1
+#define LATHE_MODE          2
 
-#define STATE_RESET         128 //!< Screen set when reset is issued.
-#define STATE_DISCONNECTED  255
+#define STATE_DISCONNECTED  1
+
+typedef union {
+    uint8_t value;                 //!< Bitmask value
+    struct {
+        uint8_t 
+        state        :4, //Machine state machine status
+        mode         :3, //machine mode
+        disconnected :1; //Connection status 
+    };
+} machine_state_t;
 
 #define OLED_WIDTH 128
 #define OLED_HEIGHT 64
@@ -252,7 +266,7 @@ typedef enum {
 
 typedef struct Machine_status_packet {
 uint8_t address;
-uint8_t machine_state;
+machine_state_t machine_state;
 uint8_t alarm;
 uint8_t home_state;
 uint8_t feed_override;

@@ -292,7 +292,7 @@ static void update_neopixels(void){
   break;      
   }//close jogmode
 
-  switch (packet->machine_state){
+  switch (packet->machine_state.state){
     case STATE_IDLE :
     //no change to jog colors
       run_color[0] = 0; run_color[1] = 255; run_color[2] = 0; //RGB
@@ -460,7 +460,7 @@ static void draw_main_screen(bool force){
       /*if(packet->machine_state != previous_packet->machine_state)
         oledFill(&oled, 0,1);//clear screen on state change*/
 
-      switch (packet->machine_state){
+      switch (packet->machine_state.state){
         case STATE_JOG : //jogging is allowed       
         case STATE_IDLE : //jogging is allowed
         if (packet->jog_mode!=previous_packet->jog_mode || packet->jog_stepsize!=previous_packet->jog_stepsize || force){
@@ -487,7 +487,7 @@ static void draw_main_screen(bool force){
         }
 
         oledWriteString(&oled, 0,94,4,(char *)" ", FONT_6x8, 0, 1);
-        switch (packet->machine_state){
+        switch (packet->machine_state.state){
           case STATE_IDLE :
           oledWriteString(&oled, 0,-1,-1,(char *)"IDLE", FONT_6x8, 0, 1); 
           break;
@@ -533,7 +533,10 @@ static void draw_main_screen(bool force){
           }
         }          
 
-        oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);            
+        if(packet->machine_state.mode == 1)
+          oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);
+        else
+          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);
 
         sprintf(charbuf, "S:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
         oledWriteString(&oled, 0,0,BOTTOMLINE,charbuf, FONT_6x8, 0, 1);
@@ -573,7 +576,10 @@ static void draw_main_screen(bool force){
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);            
           }         
 
-          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);          
+        if(packet->machine_state.mode == 1)
+          oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);
+        else
+          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);         
 
           sprintf(charbuf, "S:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
           oledWriteString(&oled, 0,0,BOTTOMLINE,charbuf, FONT_6x8, 0, 1);
@@ -604,7 +610,10 @@ static void draw_main_screen(bool force){
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);            
           }           
 
-          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);            
+        if(packet->machine_state.mode == 1)
+          oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);
+        else
+          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);           
 
           sprintf(charbuf, "S:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
           oledWriteString(&oled, 0,0,BOTTOMLINE,charbuf, FONT_6x8, 0, 1);
@@ -650,7 +659,7 @@ static void draw_main_screen(bool force){
         break; //close tool case
 
         case STATE_HOMING : //no overrides during homing
-          if( (prev_packet.machine_state != packet->machine_state) )
+          if( (prev_packet.machine_state.state != packet->machine_state.state) )
           oledFill(&oled, 0,1);
           oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
@@ -660,7 +669,7 @@ static void draw_main_screen(bool force){
 
         case STATE_ALARM : //no overrides during homing
           //only re-fill the screen if the state or alarm code have changed.
-          if( (prev_packet.alarm != packet->alarm) || (prev_packet.machine_state != packet->machine_state) )
+          if( (prev_packet.alarm != packet->alarm) || (prev_packet.machine_state.state != packet->machine_state.state) )
             oledFill(&oled, 0,1);
           oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
@@ -680,7 +689,7 @@ static void draw_main_screen(bool force){
           oledWriteString(&oled, 0,0,4,charbuf, INFOFONT, 0, 1);        
         break; //close reset case                                      
         default :
-          if( (prev_packet.machine_state != packet->machine_state) )
+          if( (prev_packet.machine_state.state != packet->machine_state.state) )
           oledFill(&oled, 0,1);
           oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
@@ -857,9 +866,9 @@ int main() {
 
 // Setup I2C0 as slave (peripheral)
 setup_slave();
-packet->machine_state = STATE_DISCONNECTED;
+packet->machine_state.disconnected = STATE_DISCONNECTED;
 key_character = CMD_STATUS_REPORT_LEGACY;
-keypad_sendchar (key_character, 1, 1);
+//keypad_sendchar (key_character, 1, 1);
 status_update_counter = STATUS_REQUEST_PERIOD;
 
 if (*flash_target_contents != 0xff)
@@ -885,12 +894,12 @@ draw_main_screen(1);
 
         //draw_main_screen(1);
         
-        if (packet->machine_state != 0xFF){
+        if (!packet->machine_state.disconnected){
           current_jogmode = (Jogmode) (packet->jog_mode >> 4);
           current_jogmodify =  (Jogmodify) (packet->jog_mode & 0x0F);
         }
 
-        if( packet->machine_state != previous_packet->machine_state ||
+        if( packet->machine_state.state != previous_packet->machine_state.state ||
             packet->feed_override != previous_packet->feed_override ||
             packet->spindle_override != previous_packet->spindle_override||
             packet->jog_mode != previous_packet->jog_mode ||
@@ -911,12 +920,12 @@ draw_main_screen(1);
         if(screenmode != previous_screenmode)
           draw_main_screen(1);
         
-        if(packet->machine_state == STATE_JOG){
+        if(packet->machine_state.state == STATE_JOG){
           draw_main_screen(1);
           update_neopixels();
         }
 
-        if (update_neopixel_leds && (packet->machine_state != STATE_DISCONNECTED) ){
+        if (update_neopixel_leds && (packet->machine_state.state != STATE_DISCONNECTED) ){
           if(context.mem_address >= sizeof(Machine_status_packet))          
             update_neopixels();
           update_neopixel_leds = 0;
@@ -1376,7 +1385,7 @@ draw_main_screen(1);
             gpio_put(ONBOARD_LED,1);
             reset_pressed = 0;
             sleep_ms(10);
-            packet->machine_state = STATE_RESET;
+            packet->machine_state.state = STATE_RESET;
             draw_main_screen(1);
             sleep_ms(500);            
             update_neopixels();
