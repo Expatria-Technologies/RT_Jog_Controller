@@ -1,7 +1,8 @@
 #ifndef __I2C_JOGGER_H__
 #define __I2C_JOGGER_H__
 
-#define VERSION "KEYPAD v1.4"
+#define PLUGIN_VERSION "PLUGIN: KEYPAD v1.4"
+#define JOG2K_VERSION  "FW: v1.0.4"
 
 // Which pin on the Arduino is connected to the NeoPixels?
 #define PIN        22 // On Trinket or Gemma, suggest changing this to 1
@@ -100,7 +101,7 @@ typedef union {
 #define MACRORIGHT 0x1A //MACRO_KEY3
 #define MACROLOWER  0x7D //MACRO_KEY4
 #define MACRORAISE 0x7C //MACRO_KEY5
-#define MACROHOME  0x7E //MACRO_KEY6
+#define MACROHOME  0x8E //MACRO_KEY6
 #define RESET  0x7F
 #define UNLOCK 0x80
 #define SPINON 0x83
