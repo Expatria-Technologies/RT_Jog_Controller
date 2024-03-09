@@ -142,7 +142,7 @@ Machine_status_packet prev_packet;
 Machine_status_packet *previous_packet = &prev_packet;
 Jogmode previous_jogmode;
 Jogmodify previous_jogmodify;
-ScreenMode previous_screenmode;
+ScreenMode previous_screenmode = DEFAULT;
 
 char *ram_ptr = (char*) &context.mem[0];
 int character_sent;
@@ -206,23 +206,23 @@ uint8_t keypad_sendchar (uint8_t character, bool clearpin, bool update_status) {
 
   while (context.mem_address_written != false && context.mem_address>0);
 
-    context.mem[0] = character;
-    context.mem_address = 0;
-    //gpio_put(KPSTR_PIN, false);
-    sleep_us(100);
-    gpio_put(KPSTR_PIN, true);
-    sleep_us(1000);
-    while (context.mem_address == 0 && timeout){
-      sleep_us(1000);      
-      timeout = timeout - 1;}
+  context.mem[0] = character;
+  context.mem_address = 0;
+  //gpio_put(KPSTR_PIN, false);
+  sleep_us(1000);
+  gpio_put(KPSTR_PIN, true);
+  //sleep_us(100);
+  while (context.mem_address == 0 && timeout){
+    sleep_us(1);      
+    timeout = timeout - 1;}
 
-    if(!timeout)
-      command_error = 1;
-    //sleep_ms(2);
-    if (clearpin){
-      sleep_ms(5);
-      gpio_put(KPSTR_PIN, false);
-    }
+  if(!timeout)
+    command_error = 1;
+  //sleep_ms(2);
+  if (clearpin){
+    //sleep_ms(5);
+    gpio_put(KPSTR_PIN, false);
+  }
   gpio_put(ONBOARD_LED, 1);
   return true;
 };
@@ -296,7 +296,7 @@ static void update_neopixels(void){
   break;      
   }//close jogmode
 
-  switch (packet->machine_state){
+  switch (packet->machine_state.state){
     case STATE_IDLE :
     //no change to jog colors
       run_color[0] = 0; run_color[1] = 255; run_color[2] = 0; //RGB
@@ -347,8 +347,8 @@ static void update_neopixels(void){
     case STATE_ALARM :
           //handle alarm state at bottom
       jog_color[0] = 0; jog_color[1] = 0; jog_color[2] = 0; //RGB
-      run_color[0] = 255; run_color[1] = 0; run_color[2] = 0; //RGB
-      hold_color[0] = 255; hold_color[1] = 0; hold_color[2] = 0; //RGB   
+      //run_color[0] = 255; run_color[1] = 0; run_color[2] = 0; //RGB
+      //hold_color[0] = 255; hold_color[1] = 0; hold_color[2] = 0; //RGB   
       halt_color[0] = 255; halt_color[1] = 0; halt_color[2] = 0; //RGB 
 
       //also override above colors for maximum alarm 
@@ -448,7 +448,7 @@ static void draw_main_screen(bool force){
   #define BOTTOMLINE 7
   #define INFOFONT FONT_8x8
 
-  while(context.mem_address < sizeof(Machine_status_packet));
+  //while(context.mem_address < sizeof(Machine_status_packet));
 
   /*if(screenmode != previous_screenmode){
     oledFill(&oled, 0,1);  //only clear screen if the mode changes.
@@ -464,7 +464,7 @@ static void draw_main_screen(bool force){
       /*if(packet->machine_state != previous_packet->machine_state)
         oledFill(&oled, 0,1);//clear screen on state change*/
 
-      switch (packet->machine_state){
+      switch (packet->machine_state.state){
         case STATE_JOG : //jogging is allowed       
         case STATE_IDLE : //jogging is allowed
         if (packet->jog_mode!=previous_packet->jog_mode || packet->jog_stepsize!=previous_packet->jog_stepsize || force){
@@ -491,7 +491,7 @@ static void draw_main_screen(bool force){
         }
 
         oledWriteString(&oled, 0,94,4,(char *)" ", FONT_6x8, 0, 1);
-        switch (packet->machine_state){
+        switch (packet->machine_state.state){
           case STATE_IDLE :
           oledWriteString(&oled, 0,-1,-1,(char *)"IDLE", FONT_6x8, 0, 1); 
           break;
@@ -537,7 +537,10 @@ static void draw_main_screen(bool force){
           }
         }          
 
-        oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);            
+        if(packet->machine_state.mode == 1)
+          oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);
+        else
+          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);
 
         sprintf(charbuf, "P:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
         oledWriteString(&oled, 0,0,BOTTOMLINE,charbuf, FONT_6x8, 0, 1);
@@ -577,7 +580,10 @@ static void draw_main_screen(bool force){
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);            
           }         
 
-          oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);          
+        if(packet->machine_state.mode == 1)
+          oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);
+        else
+          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);         
 
           sprintf(charbuf, "P:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
           oledWriteString(&oled, 0,0,BOTTOMLINE,charbuf, FONT_6x8, 0, 1);
@@ -608,7 +614,10 @@ static void draw_main_screen(bool force){
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);            
           }           
 
-          oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);            
+        if(packet->machine_state.mode == 1)
+          oledWriteString(&oled, 0,0,6,(char *)"                 PWR", FONT_6x8, 0, 1);
+        else
+          oledWriteString(&oled, 0,0,6,(char *)"                 RPM", FONT_6x8, 0, 1);           
 
           sprintf(charbuf, "P:%3d  F:%3d    ", packet->spindle_override, packet->feed_override);
           oledWriteString(&oled, 0,0,BOTTOMLINE,charbuf, FONT_6x8, 0, 1);
@@ -654,6 +663,7 @@ static void draw_main_screen(bool force){
         break; //close tool case
 
         case STATE_HOMING : //no overrides during homing
+          if( (prev_packet.machine_state.state != packet->machine_state.state) )
           oledFill(&oled, 0,1);
           oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
@@ -662,16 +672,33 @@ static void draw_main_screen(bool force){
         break; //close home case
 
         case STATE_ALARM : //no overrides during homing
-          oledFill(&oled, 0,1);
+          //only re-fill the screen if the state or alarm code have changed.
+          if( (prev_packet.alarm != packet->alarm) || (prev_packet.machine_state.state != packet->machine_state.state) )
+            oledFill(&oled, 0,1);
           oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
           //no jog during hold
           oledWriteString(&oled, 0,0,3,(char *)"ALARM", JOGFONT, 0, 1);
           sprintf(charbuf, "Code: %d ", packet->alarm);
           oledWriteString(&oled, 0,0,4,charbuf, INFOFONT, 0, 1);        
-        break; //close home case                               
-        default :
+        break; //close alarm case
 
+        case STATE_RESET : //no overrides during homing
+        oledFill(&oled, 0,1);
+          oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
+          oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
+          //no jog during hold
+          oledWriteString(&oled, 0,0,3,(char *)"RESETTING", JOGFONT, 0, 1);
+          sprintf(charbuf, "CONTROLLER", packet->alarm);
+          oledWriteString(&oled, 0,0,4,charbuf, INFOFONT, 0, 1);        
+        break; //close reset case                                      
+        default :
+          if( (prev_packet.machine_state.state != packet->machine_state.state) )
+          oledFill(&oled, 0,1);
+          oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
+          oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
+          //no jog during hold
+          oledWriteString(&oled, 0,0,4,(char *)"NO CONNECTION", JOGFONT, 0, 1);
         break; //close default case
       }//close machine_state switch statement
   }//close screen mode switch statement
@@ -843,9 +870,9 @@ int main() {
 
 // Setup I2C0 as slave (peripheral)
 setup_slave();
-packet->machine_state = 255;
-key_character = '?';
-keypad_sendchar (key_character, 1, 1);
+packet->machine_state.disconnected = STATE_DISCONNECTED;
+key_character = CMD_STATUS_REPORT_LEGACY;
+//keypad_sendchar (key_character, 1, 1);
 status_update_counter = STATUS_REQUEST_PERIOD;
 
 if (*flash_target_contents != 0xff)
@@ -858,9 +885,10 @@ char szTemp[32];
 rc = oledInit(&oled, OLED_128x64, 0x3c, screenflip, 0, 0, SDA_PIN, SCL_PIN, RESET_PIN, 1000000L);
 oledSetBackBuffer(&oled, ucBuffer);
 oledFill(&oled, 0,1);
-oledWriteString(&oled, 0,0,1,(char *)"GRBLHAL", FONT_12x16, 0, 1);
-oledWriteString(&oled, 0,0,4,(char *)"I2C JOGGER", FONT_12x16, 0, 1);
-sleep_ms(750);
+oledWriteString(&oled, 0,0,1,(char *)"JOG2K", FONT_12x16, 0, 1);
+oledWriteString(&oled, 0,0,4,(char *)JOG2K_VERSION, FONT_12x16, 0, 1);
+oledWriteString(&oled, 0,0,7,(char *)PLUGIN_VERSION, FONT_6x8, 0, 1);
+sleep_ms(1000);
 oledFill(&oled, 0,1);
 
 draw_main_screen(1);
@@ -870,12 +898,12 @@ draw_main_screen(1);
 
         //draw_main_screen(1);
         
-        if (packet->machine_state != 0xFF){
+        if (!packet->machine_state.disconnected){
           current_jogmode = (Jogmode) (packet->jog_mode >> 4);
           current_jogmodify =  (Jogmodify) (packet->jog_mode & 0x0F);
         }
 
-        if( packet->machine_state != previous_packet->machine_state ||
+        if( packet->machine_state.state != previous_packet->machine_state.state ||
             packet->feed_override != previous_packet->feed_override ||
             packet->spindle_override != previous_packet->spindle_override||
             packet->jog_mode != previous_packet->jog_mode ||
@@ -896,12 +924,12 @@ draw_main_screen(1);
         if(screenmode != previous_screenmode)
           draw_main_screen(1);
         
-        if(packet->machine_state == STATE_JOG){
+        if(packet->machine_state.state == STATE_JOG){
           draw_main_screen(1);
           update_neopixels();
         }
 
-        if (update_neopixel_leds){
+        if (update_neopixel_leds && (packet->machine_state.state != STATE_DISCONNECTED) ){
           if(context.mem_address >= sizeof(Machine_status_packet))          
             update_neopixels();
           update_neopixel_leds = 0;
@@ -911,27 +939,27 @@ draw_main_screen(1);
         if(gpio_get(HALTBUTTON)){
           pixels.setPixelColor(HALTLED,pixels.Color(0, 0, 0));        
           key_character = 0x18;
-          while(gpio_get(HALTBUTTON))
-            sleep_ms(250);     
+          //while(gpio_get(HALTBUTTON))
+          //  sleep_ms(250);     
         } else if (gpio_get(HOLDBUTTON)){
           pixels.setPixelColor(HOLDLED,pixels.Color(0, 0, 0));
           if(!jog_toggle_pressed){             
-          key_character = '!';
-          keypad_sendchar(key_character, 0, 1);
+          key_character = CMD_FEED_HOLD ;
+          keypad_sendchar(key_character, 1, 1);
           }
           while(gpio_get(HOLDBUTTON))
             sleep_us(100);
-          gpio_put(KPSTR_PIN, false);
+          //gpio_put(KPSTR_PIN, false);
                                 
         } else if (gpio_get(RUNBUTTON)){
           pixels.setPixelColor(RUNLED,pixels.Color(0, 0, 0));
           if(!jog_toggle_pressed){             
-          key_character = '~';
-          keypad_sendchar(key_character, 0, 1);
+          key_character = CMD_CYCLE_START ;
+          keypad_sendchar(key_character, 1, 1);
           }
           while(gpio_get(RUNBUTTON))
             sleep_us(100);
-          gpio_put(KPSTR_PIN, false);    
+          //gpio_put(KPSTR_PIN, false);    
         //misc commands.  These activate on lift
         } else if (gpio_get(SPINOVER_UP)){  
           if(!jog_toggle_pressed){    
@@ -986,7 +1014,7 @@ draw_main_screen(1);
             gpio_put(KPSTR_PIN, false); //make sure stobe is clear when no button is pressed.
           if (status_update_counter < 1){
             status_update_counter = STATUS_REQUEST_PERIOD;
-            draw_main_screen(0);
+            draw_main_screen(1);
             update_neopixels();
           }
         }        
@@ -1005,43 +1033,43 @@ draw_main_screen(1);
             }
             switch (direction_pressed) {
               case JOG_XR :
-              key_character = 'R';
+              key_character = CHAR_XR;
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_XL :
-              key_character = 'L';
+              key_character = CHAR_XL;
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_YF :
-              key_character = 'B';
+              key_character = CHAR_YB; //note inversion is intentional
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_YB :
-              key_character = 'F';
+              key_character = CHAR_YF; //note inversion is intentional
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_ZU :
-              key_character = 'U';
+              key_character = CHAR_ZU;
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_ZD :
-              key_character = 'D';
+              key_character = CHAR_ZD;
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_XRYF :
-              key_character = 'r';
+              key_character = CHAR_XRYF;
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_XRYB :
-              key_character = 'q';
+              key_character = CHAR_XRYB;
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_XLYF :
-              key_character = 's';
+              key_character = CHAR_XLYF;
               keypad_sendchar (key_character, 0, 1);
               break;
               case JOG_XLYB :
-              key_character = 't';
+              key_character = CHAR_XLYB;
               keypad_sendchar (key_character, 0, 1);
               break;
               /*case JOG_XRZU :
@@ -1152,7 +1180,7 @@ draw_main_screen(1);
         if (feed_down_pressed) {
           if (gpio_get(FEEDOVER_DOWN)){}//button is still pressed, do nothing
           else{
-            key_character = 0x92;
+            key_character = CMD_OVERRIDE_FEED_COARSE_MINUS;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             feed_down_pressed = 0;
@@ -1162,7 +1190,7 @@ draw_main_screen(1);
         if (feed_up_pressed) {
           if (gpio_get(FEEDOVER_UP)){}//button is still pressed, do nothing
           else{
-            key_character = 0x91;
+            key_character = CMD_OVERRIDE_FEED_COARSE_PLUS;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             feed_up_pressed = 0;
@@ -1172,7 +1200,7 @@ draw_main_screen(1);
         if (feed_reset_pressed) {
           if (gpio_get(FEEDOVER_RESET)){}//button is still pressed, do nothing
           else{
-            key_character = 0x90;
+            key_character = CMD_OVERRIDE_FEED_RESET;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             feed_reset_pressed = 0;
@@ -1182,7 +1210,7 @@ draw_main_screen(1);
         if (spin_down_pressed) {
           if (gpio_get(SPINOVER_DOWN)){}//button is still pressed, do nothing
           else{
-            key_character = 0x9B;
+            key_character = CMD_OVERRIDE_SPINDLE_COARSE_MINUS;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             spin_down_pressed = 0;
@@ -1192,7 +1220,7 @@ draw_main_screen(1);
         if (spin_up_pressed) {
           if (gpio_get(SPINOVER_UP)){}//button is still pressed, do nothing
           else{
-            key_character = 0x9A;
+            key_character = CMD_OVERRIDE_SPINDLE_COARSE_PLUS;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             spin_up_pressed = 0;
@@ -1202,7 +1230,7 @@ draw_main_screen(1);
         if (spin_reset_pressed) {
           if (gpio_get(SPINOVER_RESET)){}//button is still pressed, do nothing
           else{
-            key_character = 0x99;
+            key_character = CMD_OVERRIDE_SPINDLE_RESET;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             spin_reset_pressed = 0;
@@ -1213,7 +1241,7 @@ draw_main_screen(1);
           if (gpio_get(MISTBUTTON)){}//button is still pressed, do nothing
           else{
             if(!jog_toggle_pressed){
-            key_character = 'M';
+            key_character = CMD_OVERRIDE_COOLANT_MIST_TOGGLE;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             }
@@ -1225,7 +1253,7 @@ draw_main_screen(1);
           if (gpio_get(FLOODBUTTON)){}//button is still pressed, do nothing
           else{
             if(!jog_toggle_pressed){
-            key_character = 'C';
+            key_character = CMD_OVERRIDE_COOLANT_FLOOD_TOGGLE;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             }
@@ -1237,7 +1265,7 @@ draw_main_screen(1);
           if (gpio_get(SPINDLEBUTTON)){}//button is still pressed, do nothing
           else{
             if(!jog_toggle_pressed){
-            key_character = SPINOFF;
+            key_character = CMD_OVERRIDE_SPINDLE_STOP;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             }
@@ -1260,7 +1288,7 @@ draw_main_screen(1);
         if (jog_mod_pressed) {
           if (gpio_get(FLOODBUTTON)){}//button is still pressed, do nothing
           else{
-            key_character = 'm';
+            key_character = JOGMODIFY_CYCLE;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             jog_mod_pressed = 0;
@@ -1271,30 +1299,13 @@ draw_main_screen(1);
         if (jog_mode_pressed) {
           if (gpio_get(MISTBUTTON)){}//button is still pressed, do nothing
           else{
-              //only execute this if the jog mode wasn't changed?
-              switch (current_jogmode) {
-                case FAST :
-                  key_character = '1';
-                  //current_jogmode = SLOW;
-                break;
-                case SLOW :
-                  key_character = '2';
-                  //current_jogmode = STEP;
-                break;
-                case STEP :
-                  key_character = '0';
-                  //current_jogmode = FAST;
-                break;
-                default :
-                  key_character = '1';
-                  //current_jogmode = SLOW;
-            }//close switch statement        
-          keypad_sendchar (key_character, 1, 1);
-          gpio_put(KPSTR_PIN, false);
-          gpio_put(ONBOARD_LED,1);
-          jog_mode_pressed = 0;
-          sleep_ms(10);
-          update_neopixels();                   
+            key_character = JOGMODE_CYCLE;     
+            keypad_sendchar (key_character, 1, 1);
+            //gpio_put(KPSTR_PIN, false);
+            gpio_put(ONBOARD_LED,1);
+            jog_mode_pressed = 0;
+            sleep_ms(10);
+            update_neopixels();                   
           }
         }
         if (macro_left_pressed){
@@ -1343,12 +1354,12 @@ draw_main_screen(1);
             //screenmode = JOGGING;
             //send jog character
             key_character = MACROLOWER;
-            keypad_sendchar (key_character, 0, 1);
+            keypad_sendchar (key_character, 1, 1);
             update_neopixels();
           }//button is still pressed, Jog A Axis
           else{
             //key raised, switch back to alt mode
-            gpio_put(KPSTR_PIN, false);
+            //gpio_put(KPSTR_PIN, false);
             gpio_put(ONBOARD_LED,1);
             macro_lower_pressed = 0;
             sleep_ms(10);
@@ -1360,11 +1371,11 @@ draw_main_screen(1);
             //screenmode = JOGGING;
             //send jog character
             key_character = MACRORAISE;
-            keypad_sendchar (key_character, 0, 1);
+            keypad_sendchar (key_character, 1, 1);
             update_neopixels();
           }//button is still pressed, Jog A Axis//button is still pressed, Jog A axis
           else{
-            gpio_put(KPSTR_PIN, false);
+            //gpio_put(KPSTR_PIN, false);
             gpio_put(ONBOARD_LED,1);
             macro_raise_pressed = 0;
             sleep_ms(10);
@@ -1398,6 +1409,9 @@ draw_main_screen(1);
             gpio_put(ONBOARD_LED,1);
             reset_pressed = 0;
             sleep_ms(10);
+            packet->machine_state.state = STATE_RESET;
+            draw_main_screen(1);
+            sleep_ms(500);            
             update_neopixels();
         }}
         if (unlock_pressed){
@@ -1452,19 +1466,28 @@ draw_main_screen(1);
         }}  
         if (halt_pressed){
           if (gpio_get(HALTBUTTON)){
-            pixels.setPixelColor(HALTLED,pixels.Color(halt_color[0], halt_color[1], halt_color[2]));
+            pixels.setPixelColor(HALTLED,pixels.Color(0,255,0));
             pixels.show();
           }//button is still pressed, do nothing
           else{
             //erase and write memory location based on current value of screenflip.
+            
+            pixels.setPixelColor(HALTLED,pixels.Color(255,255,0));
+            pixels.show();
+            sleep_ms(250);
             screenflip = !screenflip;
             uint32_t status = save_and_disable_interrupts();
             flash_range_erase(FLASH_TARGET_OFFSET, FLASH_SECTOR_SIZE);
+            
             restore_interrupts(status);
             sleep_ms(250);
             flash_range_program(FLASH_TARGET_OFFSET, (uint8_t*)&screenflip, 1);
-          halt_pressed = 0;
-          update_neopixels();
+            halt_pressed = 0;
+            //update_neopixels();
+
+            #define AIRCR_Register (*((volatile uint32_t*)(PPB_BASE + 0x0ED0C)))
+
+            AIRCR_Register = 0x5FA0004;
         }}                                                                                                                                                  
     }//close main while loop
     return 0;

@@ -1,6 +1,9 @@
 #ifndef __I2C_JOGGER_H__
 #define __I2C_JOGGER_H__
 
+#define PLUGIN_VERSION "PLUGIN: KEYPAD v1.4"
+#define JOG2K_VERSION  "FW: v1.0.4"
+
 // Which pin on the Arduino is connected to the NeoPixels?
 #define PIN        22 // On Trinket or Gemma, suggest changing this to 1
 // How many NeoPixels are attached to the Arduino?
@@ -24,6 +27,23 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define STATE_IDLE          5 //!< Must be zero. No flags.
 #define STATE_HOMING        6 //!< Performing homing cycle
 #define STATE_JOG           7 //!< Jogging mode.
+#define STATE_RESET         8 //!< Screen set when reset is issued.
+                 
+#define NORMAL_MODE         0
+#define LASER_MODE          1
+#define LATHE_MODE          2
+
+#define STATE_DISCONNECTED  1
+
+typedef union {
+    uint8_t value;                 //!< Bitmask value
+    struct {
+        uint8_t 
+        state        :4, //Machine state machine status
+        mode         :3, //machine mode
+        disconnected :1; //Connection status 
+    };
+} machine_state_t;
 
 #define OLED_WIDTH 128
 #define OLED_HEIGHT 64
@@ -75,17 +95,16 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define STATUS_REQUEST_PERIOD 100
 
 //ACTION DEFINES
-#define MACROUP 0x18
-#define MACRODOWN 0x19
-#define MACROLEFT 0x1B
-#define MACRORIGHT 0x1A
-#define MACROLOWER  0x7D
-#define MACRORAISE 0x7C
-#define MACROHOME  0x8E
+#define MACROUP 0x18  //MACRO_KEY0
+#define MACRODOWN 0x19 //MACRO_KEY1
+#define MACROLEFT 0x1B //MACRO_KEY2
+#define MACRORIGHT 0x1A //MACRO_KEY3
+#define MACROLOWER  0x7D //MACRO_KEY4
+#define MACRORAISE 0x7C //MACRO_KEY5
+#define MACROHOME  0x8E //MACRO_KEY6
 #define RESET  0x7F
 #define UNLOCK 0x80
-#define SPINON 0x7D // TEMP MOD FOR GUIDE LASER OFF
-#define SPINOFF 0x7C // TEMP MOD FOR GUIDE LASER ON
+#define SPINON 0x83
 
 #define UP 0
 #define RIGHT 1
@@ -110,11 +129,62 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define JOG_XLZU JOG_XL | JOG_ZU
 #define JOG_XLZD JOG_XL | JOG_ZD*/
 
+#define CHAR_XR   'R'
+#define CHAR_XL   'L'
+#define CHAR_YF   'F'
+#define CHAR_YB   'B'
+#define CHAR_ZU   'U'
+#define CHAR_ZD   'D'
+#define CHAR_XRYF 'r'
+#define CHAR_XRYB 'q'
+#define CHAR_XLYF 's'
+#define CHAR_XLYB 't'
+#define CHAR_XRZU 'w'
+#define CHAR_XRZD 'v'
+#define CHAR_XLZU 'u'
+#define CHAR_XLZD 'x'
+#define CHAR_AR   'A'
+#define CHAR_AL   'a'
+
+#define CMD_STATUS_REPORT_LEGACY '?'
+#define CMD_CYCLE_START 0x81   // TODO: use 0x06 ctrl-F ACK instead? or SYN/DC2/DC3?
+#define CMD_FEED_HOLD 0x82     // TODO: use 0x15 ctrl-U NAK instead?
+#define CMD_RESET 0x18 // ctrl-X (CAN)
+#define CMD_SAFETY_DOOR 0x84
+#define CMD_OVERRIDE_FAN0_TOGGLE 0x8A       // Toggle Fan 0 on/off, not implemented by the core.
+#define CMD_MPG_MODE_TOGGLE 0x8B            // Toggle MPG mode on/off, not implemented by the core.
+#define CMD_AUTO_REPORTING_TOGGLE 0x8C      // Toggle auto real time reporting if configured.
+#define CMD_OVERRIDE_FEED_RESET 0x90        // Restores feed override value to 100%.
+#define CMD_OVERRIDE_FEED_COARSE_PLUS 0x91
+#define CMD_OVERRIDE_FEED_COARSE_MINUS 0x92
+#define CMD_OVERRIDE_FEED_FINE_PLUS 0x93
+#define CMD_OVERRIDE_FEED_FINE_MINUS 0x94
+#define CMD_OVERRIDE_RAPID_RESET 0x95       // Restores rapid override value to 100%.
+#define CMD_OVERRIDE_RAPID_MEDIUM 0x96
+#define CMD_OVERRIDE_RAPID_LOW 0x97
+#define CMD_OVERRIDE_SPINDLE_RESET 0x99     // Restores spindle override value to 100%.
+#define CMD_OVERRIDE_SPINDLE_COARSE_PLUS 0x9A
+#define CMD_OVERRIDE_SPINDLE_COARSE_MINUS 0x9B
+#define CMD_OVERRIDE_SPINDLE_FINE_PLUS 0x9C
+#define CMD_OVERRIDE_SPINDLE_FINE_MINUS 0x9D
+#define CMD_OVERRIDE_SPINDLE_STOP 0x9E
+#define CMD_OVERRIDE_COOLANT_FLOOD_TOGGLE 'C'
+#define CMD_OVERRIDE_COOLANT_MIST_TOGGLE 'M'
+#define CMD_PID_REPORT 0xA2
+#define CMD_TOOL_ACK 0xA3
+#define CMD_PROBE_CONNECTED_TOGGLE 0xA4
+
+#define JOGMODE_FAST '0'
+#define JOGMODE_SLOW '1'
+#define JOGMODE_STEP '2'
+#define JOGMODE_CYCLE 'h'
+#define JOGMODIFY_CYCLE 'm'
+
 // The slave implements a 256 byte memory. To write a series of bytes, the master first
 // writes the memory address, followed by the data. The address is automatically incremented
 // for each byte transferred, looping back to 0 upon reaching the end. Reading is done
 // sequentially from the current memory address.
-#define I2C_TIMEOUT_VALUE 100
+#define I2C_TIMEOUT_VALUE 100000  //microseconds
 
 // Alarm executor codes. Valid values (1-255). Zero is reserved.
 typedef enum {
@@ -197,7 +267,7 @@ typedef enum {
 
 typedef struct Machine_status_packet {
 uint8_t address;
-uint8_t machine_state;
+machine_state_t machine_state;
 uint8_t alarm;
 uint8_t home_state;
 uint8_t feed_override;
