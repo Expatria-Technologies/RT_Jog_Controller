@@ -64,6 +64,9 @@ Some pre-release Jog2K systems used RJ45 connections, but all current and future
 
 Please note that on A4 and earlier revisions of the PCB, e-marker cables do not work.
 
+## Upgrading the firmware
+
+The Jog2K uses an RP2040 microcontroller that has an integrated UF2 bootloader.  To enter bootloader mode, the Jog2K must be connected to a PC via the HID USB port.  Hold the BOOTSEL button while connecting the Jog2K, or else hold the BOOTSEL button while pulsing the RESET button to enter UF2 mode.  The Jog2K will appear as a USB drive with the label "RPI-RP2" and then drag the UF2 file onto the drive.
 
 ## Assembly
 
