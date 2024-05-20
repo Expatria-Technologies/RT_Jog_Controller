@@ -4,12 +4,6 @@
 
 Expatria Technologies jog controller for GRBLHAL2000 and Flexi-HAL boards
 
-Assembled PCBs currently available in our online store:
-
-https://expatria.myshopify.com/products/jog2k-keypad-pendant-pcba
-
-Please consider buying a board to support our open-source designs.
-
 This jog controller was developed for the GRLBHAL20000 and Flexi-HAL boards.  It is designed to be relatively inexpensive and simple to assemble.  It needs minimal manual wiring and leverages 3d printable parts for assembly.  The system consists of a small interface module that is installed on the Real-Time/I2C headers on the Flexi-HAL, plus a simple lighted button keypad that uses a Raspberry Pi Pico to send character commands to GRBLHAL and receive status information.  This pendant relies on the modified I2C Keypad plugin that was extended by Expatria Technologies:
 
 https://github.com/Expatria-Technologies/Plugin_I2C_keypad
