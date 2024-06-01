@@ -50,7 +50,7 @@ It is easiest to configure the macros in IOSender.
 
 <img src="/readme_images/more_macros.png" width="400">
 
-Each macro is limited to 127 characters.  The macro on the spindle button has a special function that should not be modified.  When the spindle is off, the macro will run and it is intended to start up the spindle at a slow rate (the default value for this macro is 200 RPM, ie the minimum spindle RPM).  When the spindle is running, activating the spindle macro button will send an M5 command to stop the spindle.  The primary use of this functionality is for manual edge-finding.  Assigning other macros to the spindle button is not recommended.
+Each macro is limited to 127 characters.
 
 ## Cable Interface - 5 Gbps Link Cable Required.
 
