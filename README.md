@@ -27,7 +27,7 @@ https://github.com/Expatria-Technologies/Mods-Accessories/tree/main/Expatria/Jog
 
 Many of the buttons on the Jog2K have alternate functions that are accessed via the SHIFT/FUNCTION button.  The XYZ jog buttons give access to the configurable macros.  In the event that a 4th axis is enabled in GRBLHAL, the macro functions of the Z axis buttons are lost and the alternate function for those buttons changes to jogging the A axis.
 
-When used with GRBLHAL, always ensure that "limit jog commands" is true (not like above image) and ensure that the soft limits are properly configured and enabled for your machine.  There are 3 modes:
+When used with GRBLHAL, always ensure that "limit jog commands" is true and ensure that the soft limits are properly configured and enabled for your machine.  There are 3 modes:
 1) Fast mode continuous jogging.  Machine will jog at the $50 speed until it either travels the $55 fast jog distance or hits the machine limit
 2) Slow mode continuous jogging.  Machine will jog at the $51 slower speed until it either travels the $54 slow jog distance or hits the machine limit
 3) Step jog mode.  Machine will travel the $53 distance (or to machine limit) and stop.  Usually this step is quite small so the $50 step jog speed isn't relevant, but it is still configurable.
