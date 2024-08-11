@@ -100,10 +100,14 @@ uint8_t key_character = '\0';
 
 uint8_t feed_up_pressed = 0;
 uint8_t feed_down_pressed = 0;
+uint8_t feed_up_fine_pressed = 0;
+uint8_t feed_down_fine_pressed = 0;
 uint8_t feed_reset_pressed = 0;
 
 uint8_t spin_up_pressed = 0;
 uint8_t spin_down_pressed = 0;
+uint8_t spin_up_fine_pressed = 0;
+uint8_t spin_down_fine_pressed = 0;
 uint8_t spin_reset_pressed = 0;
 
 uint8_t jog_mod_pressed = 0;
@@ -958,15 +962,23 @@ draw_main_screen(1);
           //gpio_put(KPSTR_PIN, false);    
         //misc commands.  These activate on lift
         } else if (gpio_get(SPINOVER_UP)){  
-          spin_up_pressed = 1;            
-        } else if (gpio_get(SPINOVER_DOWN)){  
-          spin_down_pressed = 1;
+          if(!jog_toggle_pressed){    
+            spin_up_pressed = 1;
+          }            
+        } else if (gpio_get(SPINOVER_DOWN)){
+          if(!jog_toggle_pressed){    
+            spin_down_pressed = 1;
+          }
         } else if (gpio_get(SPINOVER_RESET)){  
           spin_reset_pressed = 1; 
-        } else if (gpio_get(FEEDOVER_UP)){ 
-          feed_up_pressed = 1;    
-        } else if (gpio_get(FEEDOVER_DOWN)){ 
-          feed_down_pressed = 1;            
+        } else if (gpio_get(FEEDOVER_UP)){
+          if(!jog_toggle_pressed){    
+            feed_up_pressed = 1;
+          }    
+        } else if (gpio_get(FEEDOVER_DOWN)){
+          if(!jog_toggle_pressed){     
+            feed_down_pressed = 1;
+          }            
         } else if (gpio_get(FEEDOVER_RESET)){  
           feed_reset_pressed = 1;              
         } else if (gpio_get(HOMEBUTTON)){  
@@ -1141,7 +1153,19 @@ draw_main_screen(1);
             }
             if (gpio_get(HALTBUTTON)){
               halt_pressed = 1;              
-            }                                                                                                                                       
+            }
+            if (gpio_get(SPINOVER_UP)){  
+              spin_up_fine_pressed = 1;            
+            }
+            if (gpio_get(SPINOVER_DOWN)){  
+              spin_down_fine_pressed = 1;
+            }
+            if (gpio_get(FEEDOVER_UP)){ 
+              feed_up_fine_pressed = 1;    
+            }
+            if (gpio_get(FEEDOVER_DOWN)){ 
+              feed_down_fine_pressed = 1;            
+            }                                                                                                                    
           }//close jog toggle pressed.
         }//close jog button pressed statement
 //Single functions ***********************************************************************
@@ -1241,7 +1265,11 @@ draw_main_screen(1);
           if (gpio_get(SPINDLEBUTTON)){}//button is still pressed, do nothing
           else{
             if(!jog_toggle_pressed){
-            key_character = CMD_OVERRIDE_SPINDLE_STOP;
+              if(packet->machine_state.mode == 1){ // SAFETY FOR LASERS TO NOT ENABLE LASER FROM JOG2K
+                key_character = CMD_OVERRIDE_FAN0_TOGGLE;
+              }else{
+                key_character = CMD_OVERRIDE_SPINDLE_STOP;
+              }
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             }
@@ -1411,6 +1439,46 @@ draw_main_screen(1);
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             unlock_pressed = 0;
+            sleep_ms(10);
+            update_neopixels();
+        }}
+        if (feed_down_fine_pressed) {
+          if (gpio_get(FEEDOVER_DOWN)){}//button is still pressed, do nothing
+          else{
+            key_character = CMD_OVERRIDE_FEED_FINE_MINUS;
+            keypad_sendchar (key_character, 1, 1);
+            gpio_put(ONBOARD_LED,1);
+            feed_down_fine_pressed = 0;
+            sleep_ms(10);
+            update_neopixels();                       
+         }}
+        if (feed_up_fine_pressed) {
+          if (gpio_get(FEEDOVER_UP)){}//button is still pressed, do nothing
+          else{
+            key_character = CMD_OVERRIDE_FEED_FINE_PLUS;
+            keypad_sendchar (key_character, 1, 1);
+            gpio_put(ONBOARD_LED,1);
+            feed_up_fine_pressed = 0;
+            sleep_ms(10);
+            update_neopixels();                
+        }}
+        if (spin_down_fine_pressed) {
+          if (gpio_get(SPINOVER_DOWN)){}//button is still pressed, do nothing
+          else{
+            key_character = CMD_OVERRIDE_SPINDLE_FINE_MINUS;
+            keypad_sendchar (key_character, 1, 1);
+            gpio_put(ONBOARD_LED,1);
+            spin_down_fine_pressed = 0;
+            sleep_ms(10);
+            update_neopixels();           
+        }}
+        if (spin_up_fine_pressed) {
+          if (gpio_get(SPINOVER_UP)){}//button is still pressed, do nothing
+          else{
+            key_character = CMD_OVERRIDE_SPINDLE_FINE_PLUS;
+            keypad_sendchar (key_character, 1, 1);
+            gpio_put(ONBOARD_LED,1);
+            spin_up_fine_pressed = 0;
             sleep_ms(10);
             update_neopixels();
         }}  
