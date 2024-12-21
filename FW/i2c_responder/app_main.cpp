@@ -1326,36 +1326,50 @@ draw_main_screen(1);
         }}
         if (macro_lower_pressed){
           if (gpio_get(LOWERBUTTON)){
-            //switch screen to jogmode
-            //screenmode = JOGGING;
-            //send jog character
-            key_character = MACROLOWER;
-            keypad_sendchar (key_character, 1, 1);
-            update_neopixels();
-          }//button is still pressed, Jog A Axis
-          else{
-            //key raised, switch back to alt mode
-            //gpio_put(KPSTR_PIN, false);
-            gpio_put(ONBOARD_LED,1);
-            macro_lower_pressed = 0;
-            sleep_ms(10);
-            update_neopixels();
-        }}
-        if (macro_raise_pressed){
-          if (gpio_get(RAISEBUTTON)){
-            //switch screen to jogmode
-            //screenmode = JOGGING;
-            //send jog character
-            key_character = MACRORAISE;
-            keypad_sendchar (key_character, 1, 1);
-            update_neopixels();
+            if(packet->a_coordinate != 0xFFFFFFFF){
+              //switch screen to jogmode
+              screenmode = JOGGING;
+              //send jog character
+              key_character = MACROLOWER;
+              keypad_sendchar (key_character, 0, 1);
+              update_neopixels();
+            } else {
+              key_character = MACROLOWER;
+              keypad_sendchar (key_character, 1, 1);
+              update_neopixels();
+            }
           }//button is still pressed, Jog A Axis//button is still pressed, Jog A axis
           else{
-            //gpio_put(KPSTR_PIN, false);
-            gpio_put(ONBOARD_LED,1);
-            macro_raise_pressed = 0;
-            sleep_ms(10);
-            update_neopixels();
+              if(packet->a_coordinate != 0xFFFFFFFF)          
+                gpio_put(KPSTR_PIN, false);
+              gpio_put(ONBOARD_LED,1);
+              macro_raise_pressed = 0;
+              sleep_ms(10);
+              update_neopixels();
+              
+        }}  
+        if (macro_raise_pressed){
+          if (gpio_get(RAISEBUTTON)){
+            if(packet->a_coordinate != 0xFFFFFFFF){
+              //switch screen to jogmode
+              screenmode = JOGGING;
+              //send jog character
+              key_character = MACRORAISE;
+              keypad_sendchar (key_character, 0, 1);
+              update_neopixels();
+            } else {
+              key_character = MACRORAISE;
+              keypad_sendchar (key_character, 1, 1);
+              update_neopixels();
+            }
+          }//button is still pressed, Jog A Axis//button is still pressed, Jog A axis
+          else{
+              if(packet->a_coordinate != 0xFFFFFFFF)          
+                gpio_put(KPSTR_PIN, false);
+              gpio_put(ONBOARD_LED,1);
+              macro_raise_pressed = 0;
+              sleep_ms(10);
+              update_neopixels();              
         }}        
         if (spinon_pressed){
           if (gpio_get(SPINDLEBUTTON)){}//button is still pressed, do nothing
