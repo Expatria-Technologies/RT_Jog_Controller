@@ -1343,7 +1343,7 @@ draw_main_screen(1);
               if(packet->a_coordinate != 0xFFFFFFFF)          
                 gpio_put(KPSTR_PIN, false);
               gpio_put(ONBOARD_LED,1);
-              macro_raise_pressed = 0;
+              macro_lower_pressed = 0;
               sleep_ms(10);
               update_neopixels();
               
