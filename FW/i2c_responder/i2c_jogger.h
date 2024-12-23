@@ -2,7 +2,7 @@
 #define __I2C_JOGGER_H__
 
 #define PLUGIN_VERSION "PLUGIN: KEYPAD v1.4"
-#define JOG2K_VERSION  "FW: v1.0.5"
+#define JOG2K_VERSION  "FW: v1.0.6"
 
 // Which pin on the Arduino is connected to the NeoPixels?
 #define PIN        22 // On Trinket or Gemma, suggest changing this to 1
