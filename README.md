@@ -4,13 +4,7 @@
 
 Expatria Technologies jog controller for GRBLHAL2000 and Flexi-HAL boards
 
-Assembled PCBs currently available in our online store:
-
-https://expatria.myshopify.com/products/jog2k-keypad-pendant-pcba
-
-Please consider buying a board to support our open-source designs.
-
-This jog controller was developed for the GRLBHAL20000 and Flexi-HAL boards.  It is designed to be relatively inexpensive and simple to assemble.  It needs minimal manual wiring and leverages 3d printable parts for assembly.  The system consists of a small interface module that is installed on the Real-Time/I2C headers on the Flexi-HAL, plus a simple lighted button keypad that uses a Raspberry Pi Pico to send character commands to GRBLHAL and receive status information.  This pendant relies on the modified I2C Keypad plugin that was extended by Expatria Technologies:
+This jog controller was developed for the GRLBHAL20000 and Flexi-HAL boards.  It is designed to be relatively inexpensive and simple to assemble.  It needs minimal manual wiring and leverages 3d printable parts for assembly.  The system consists of a small interface module that is installed on the Real-Time/I2C headers on the Flexi-HAL, plus a simple lighted button keypad that uses an RP2040 microcontroller to send character commands to GRBLHAL and receive status information.  This pendant relies on the modified I2C Keypad plugin that was extended by Expatria Technologies:
 
 https://github.com/Expatria-Technologies/Plugin_I2C_keypad
 
@@ -33,7 +27,7 @@ https://github.com/Expatria-Technologies/Mods-Accessories/tree/main/Expatria/Jog
 
 Many of the buttons on the Jog2K have alternate functions that are accessed via the SHIFT/FUNCTION button.  The XYZ jog buttons give access to the configurable macros.  In the event that a 4th axis is enabled in GRBLHAL, the macro functions of the Z axis buttons are lost and the alternate function for those buttons changes to jogging the A axis.
 
-When used with GRBLHAL, always ensure that "limit jog commands" is true (not like above image) and ensure that the soft limits are properly configured and enabled for your machine.  There are 3 modes:
+When used with GRBLHAL, always ensure that "limit jog commands" is true and ensure that the soft limits are properly configured and enabled for your machine.  There are 3 modes:
 1) Fast mode continuous jogging.  Machine will jog at the $50 speed until it either travels the $55 fast jog distance or hits the machine limit
 2) Slow mode continuous jogging.  Machine will jog at the $51 slower speed until it either travels the $54 slow jog distance or hits the machine limit
 3) Step jog mode.  Machine will travel the $53 distance (or to machine limit) and stop.  Usually this step is quite small so the $50 step jog speed isn't relevant, but it is still configurable.
@@ -54,9 +48,9 @@ The HALT button has an alternate function which is to flip the OLED screen verti
 
 It is easiest to configure the macros in IOSender.
 
-<img src="/readme_images/macros.jpg" width="400">
+<img src="/readme_images/more_macros.png" width="400">
 
-Each macro is limited to 127 characters.  The macro on the spindle button has a special function that should not be modified.  When the spindle is off, the macro will run and it is intended to start up the spindle at a slow rate (the default value for this macro is 200 RPM, ie the minimum spindle RPM).  When the spindle is running, activating the spindle macro button will send an M5 command to stop the spindle.  The primary use of this functionality is for manual edge-finding.  Assigning other macros to the spindle button is not recommended.
+Each macro is limited to 127 characters.
 
 ## Cable Interface - 5 Gbps Link Cable Required.
 
@@ -64,6 +58,9 @@ Some pre-release Jog2K systems used RJ45 connections, but all current and future
 
 Please note that on A4 and earlier revisions of the PCB, e-marker cables do not work.
 
+## Upgrading the firmware
+
+The Jog2K uses an RP2040 microcontroller that has an integrated UF2 bootloader.  To enter bootloader mode, the Jog2K must be connected to a PC via the HID USB port.  Hold the BOOTSEL button while connecting the Jog2K, or else hold the BOOTSEL button while pulsing the RESET button to enter UF2 mode.  The Jog2K will appear as a USB drive with the label "RPI-RP2" and then drag the UF2 file onto the drive.
 
 ## Assembly
 
