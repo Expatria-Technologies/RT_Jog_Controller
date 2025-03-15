@@ -103,7 +103,7 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define MACRORAISE 0x7C //MACRO_KEY5
 #define MACROHOME  0x8E //MACRO_KEY6
 #define RESET  0x7F
-#define UNLOCK 0x80
+#define UNLOCK 'X'
 #define SPINON 0x83
 
 #define UP 0

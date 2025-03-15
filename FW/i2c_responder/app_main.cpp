@@ -155,6 +155,7 @@ static void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
         if (!context.mem_address_written) {
             // writes always start with the memory address
             context.mem_address = i2c_read_byte(i2c);
+            context.mem_address = 0x01;
             context.mem_address_written = true;
         } else {
             // save into memory
@@ -229,7 +230,7 @@ uint8_t keypad_sendchar (uint8_t character, bool clearpin, bool update_status) {
 
 static void update_neopixels(void){
 
-  if (context.mem_address < sizeof(machine_status_packet_t))
+  if (context.mem_address < offsetof(machine_status_packet_t, msg))
     return;
   
   //set override LEDS
@@ -693,7 +694,7 @@ static void draw_main_screen(bool force){
             oledWriteString(&oled, 0,0,3,(char *)"RESETTING", JOGFONT, 0, 1);
             oledWriteString(&oled, 0,0,4,(char *)"CONTROLLER", INFOFONT, 0, 1);
           }     
-          else if( (prev_packet.machine_state != packet->machine_state) ){
+          else if( (prev_packet.status_code != packet->status_code) ){
             oledFill(&oled, 0,1);
             oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
             oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
@@ -931,7 +932,7 @@ draw_main_screen(1);
         }
 
         if (update_neopixel_leds && (packet->status_code != Status_UserException) ){
-          if(context.mem_address >= sizeof(machine_status_packet_t))          
+          if(context.mem_address >= offsetof(machine_status_packet_t, msg))          
             update_neopixels();
           update_neopixel_leds = 0;
         }
