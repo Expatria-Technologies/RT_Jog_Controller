@@ -99,12 +99,14 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define MACRODOWN   0xB1 //MACRO_KEY1
 #define MACROLEFT   0xB2 //MACRO_KEY2
 #define MACRORIGHT  0xB3 //MACRO_KEY3
-#define MACROLOWER  0xB4 //MACRO_KEY4
-#define MACRORAISE  0xB5 //MACRO_KEY5
-#define MACROHOME   0xB6 //MACRO_KEY6
+#define SPINOFF     0xB4 //MACRO_KEY4
+#define SPINON      0xB5 //MACRO_KEY5
+#define MACRORAISE  0xB6 //MACRO_KEY6
+#define MACROLOWER  0xB7 //MACRO_KEY7
+
+#define MACROHOME   'o'  //toggle WCS offset
 #define RESET  0x18
 #define UNLOCK 'X'
-#define SPINON 0x83
 
 #define UP 0
 #define RIGHT 1
@@ -124,6 +126,8 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define JOG_XRYB JOG_XR | JOG_YF
 #define JOG_XLYF JOG_XL | JOG_YB
 #define JOG_XLYB JOG_XL | JOG_YF
+#define JOG_AR   'A'
+#define JOG_AL   'a'
 /*#define JOG_XRZU JOG_XR | JOG_ZU
 #define JOG_XRZD JOG_XR | JOG_ZD
 #define JOG_XLZU JOG_XL | JOG_ZU

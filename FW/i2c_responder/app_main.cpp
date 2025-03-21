@@ -1269,11 +1269,7 @@ draw_main_screen(1);
           if (gpio_get(SPINDLEBUTTON)){}//button is still pressed, do nothing
           else{
             if(!jog_toggle_pressed){
-              if(packet->machine_modes.mode == Mode_Laser){ // SAFETY FOR LASERS TO NOT ENABLE LASER FROM JOG2K
-                key_character = CMD_OVERRIDE_FAN0_TOGGLE;
-              }else{
-                key_character = CMD_OVERRIDE_SPINDLE_STOP;
-              }
+            key_character = SPINOFF;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             }
@@ -1362,7 +1358,7 @@ draw_main_screen(1);
               //switch screen to jogmode
               //screenmode = JOGGING;
               //send jog character
-              key_character = MACROLOWER;
+              key_character = JOG_AL;
               keypad_sendchar (key_character, 0, 1);
               //update_neopixels();
             // } else {
@@ -1390,7 +1386,7 @@ draw_main_screen(1);
               //switch screen to jogmode
               //screenmode = JOGGING;
               //send jog character
-              key_character = MACRORAISE;
+              key_character = JOG_AR;
               keypad_sendchar (key_character, 0, 1);
               //update_neopixels();
             // } else {
