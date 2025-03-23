@@ -1095,11 +1095,11 @@ draw_main_screen(1);
               keypad_sendchar (key_character, 0, 1);
               break;*/
               case JOG_AL :
-              key_character = JOG_AL;
+              key_character = CHAR_AL;
               keypad_sendchar (key_character, 0, 1);
               break;   
               case JOG_AR :
-              key_character = JOG_AR;
+              key_character = CHAR_AR;
               keypad_sendchar (key_character, 0, 1);
               break;                                                                                                                                                                                     
               default:
