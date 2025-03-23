@@ -71,6 +71,7 @@ int rc;
 SSOLED oled;
 static uint8_t ucBuffer[1024];
 bool screenflip = false;
+bool joggle_reset =false;
 
 int led_update_counter = 0;
 int update_neopixel_leds = 0;
@@ -155,7 +156,7 @@ static void i2c_slave_handler(i2c_inst_t *i2c, i2c_slave_event_t event) {
         if (!context.mem_address_written) {
             // writes always start with the memory address
             context.mem_address = i2c_read_byte(i2c);
-            context.mem_address = 0x01;
+            //context.mem_address = 0x01;
             context.mem_address_written = true;
         } else {
             // save into memory
@@ -925,8 +926,8 @@ draw_main_screen(1);
           draw_main_screen(1);        
         }
 
-        if(screenmode != previous_screenmode)
-          draw_main_screen(1);
+        //if(screenmode != previous_screenmode)
+        //  draw_main_screen(1);
         
         if(packet->machine_state == MachineState_Jog){
           draw_main_screen(1);
@@ -993,7 +994,7 @@ draw_main_screen(1);
           flood_pressed = 1;   
         } else if (gpio_get(SPINDLEBUTTON)){ 
           spinoff_pressed = 1;
-        } else if (gpio_get(JOG_SELECT)){  //Toggle Jog modes
+        } else if (gpio_get(JOG_SELECT) && (!joggle_reset)){  //Toggle Jog modes
           jog_toggle_pressed = 1;
         } else if (!jog_toggle_pressed &&//only read jog actions when jog toggle is released.
                    gpio_get(UPBUTTON) ||
@@ -1014,7 +1015,8 @@ draw_main_screen(1);
             if(direction_pressed){
               direction_pressed = 0;
               rollover_delay = 0;
-            }       
+            }
+            joggle_reset = false;       
             gpio_put(KPSTR_PIN, false); //make sure stobe is clear when no button is pressed.
           if (status_update_counter < 1){
             status_update_counter = STATUS_REQUEST_PERIOD;
@@ -1091,7 +1093,15 @@ draw_main_screen(1);
               case JOG_XLZD :
               key_character = 'x';
               keypad_sendchar (key_character, 0, 1);
-              break;*/                                                                                                                                                                                      
+              break;*/
+              case JOG_AL :
+              key_character = JOG_AL;
+              keypad_sendchar (key_character, 0, 1);
+              break;   
+              case JOG_AR :
+              key_character = JOG_AR;
+              keypad_sendchar (key_character, 0, 1);
+              break;                                                                                                                                                                                     
               default:
               break;
             }
@@ -1356,10 +1366,9 @@ draw_main_screen(1);
           if (gpio_get(LOWERBUTTON)){
             if(packet->coordinate.a != 0xFFFFFFFF){
               //switch screen to jogmode
-              //screenmode = JOGGING;
+              screenmode = JOGGING;
               //send jog character
-              key_character = JOG_AL;
-              keypad_sendchar (key_character, 0, 1);
+              direction_pressed = JOG_AL;
               //update_neopixels();
             // } else {
             //   key_character = MACROLOWER;
@@ -1369,7 +1378,9 @@ draw_main_screen(1);
           }//button is still pressed, Jog A Axis//button is still pressed, Jog A axis
           else{
               if(packet->coordinate.a != 0xFFFFFFFF){          
-                gpio_put(KPSTR_PIN, false);
+                //gpio_put(KPSTR_PIN, false);
+                jog_toggle_pressed = 0;
+                joggle_reset = true;
               }
               else{
                 key_character = MACROLOWER;
@@ -1384,10 +1395,9 @@ draw_main_screen(1);
           if (gpio_get(RAISEBUTTON)){
             if(packet->coordinate.a != 0xFFFFFFFF){
               //switch screen to jogmode
-              //screenmode = JOGGING;
+              screenmode = JOGGING;
               //send jog character
-              key_character = JOG_AR;
-              keypad_sendchar (key_character, 0, 1);
+              direction_pressed = JOG_AR;
               //update_neopixels();
             // } else {
             //   key_character = MACRORAISE;
@@ -1397,7 +1407,9 @@ draw_main_screen(1);
           }//button is still pressed, Jog A Axis//button is still pressed, Jog A axis
           else{
               if(packet->coordinate.a != 0xFFFFFFFF){        
-                gpio_put(KPSTR_PIN, false);
+                //gpio_put(KPSTR_PIN, false);
+                jog_toggle_pressed = 0;
+                joggle_reset = true;
               }
               else{
                 key_character = MACRORAISE;
