@@ -34,6 +34,8 @@
 #include <i2c_fifo.h>
 #include <i2c_slave.h>
 
+#include <math.h>
+
 #include "i2c_jogger.h"
 
 //#define SHOWJOG 1
@@ -388,7 +390,7 @@ static void update_neopixels(void){
   else
     pixels.setPixelColor(JOGLED,pixels.Color(jog_color[0], jog_color[1], jog_color[2]));
 
-  if(packet->coordinate.a==0xFFFFFFFF && screenmode == JOG_MODIFY)
+  if(isnan(packet->coordinate.a) && screenmode == JOG_MODIFY)
     pixels.setPixelColor(RAISELED,pixels.Color(138, 43, 226));
   else
     pixels.setPixelColor(RAISELED,pixels.Color(jog_color[0], jog_color[1], jog_color[2]));
@@ -526,7 +528,7 @@ static void draw_main_screen(bool force){
             sprintf(charbuf, "Z %8.3F", packet->coordinate.z);
             oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);
           //}
-          if(packet->coordinate.a < 65535){          
+          if(!isnan(packet->coordinate.a)){          
             sprintf(charbuf, "A %8.3F", packet->coordinate.a);
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
           }else if (command_error){
@@ -574,7 +576,7 @@ static void draw_main_screen(bool force){
           oledWriteString(&oled, 2,0,4,(char *)"        ", FONT_8x8, 0, 1); 
           sprintf(charbuf, "Z %8.3F", packet->coordinate.z);
           oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);
-          if(packet->coordinate.a != 0xFFFFFFFF){ 
+          if(!isnan(packet->coordinate.a)){ 
             sprintf(charbuf, "A %8.3F", packet->coordinate.a);
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
           }else{
@@ -608,7 +610,7 @@ static void draw_main_screen(bool force){
           oledWriteString(&oled, 0,0,3,charbuf, FONT_8x8, 0, 1); 
           sprintf(charbuf, "Z %8.3F", packet->coordinate.z);
           oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);
-          if(packet->coordinate.a != 0xFFFFFFFF){ 
+          if(!isnan(packet->coordinate.a)){ 
             sprintf(charbuf, "A %8.3F", packet->coordinate.a);
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
           }else{
@@ -654,7 +656,7 @@ static void draw_main_screen(bool force){
           oledWriteString(&oled, 0,0,3,charbuf, FONT_8x8, 0, 1); 
           sprintf(charbuf, "Z %8.3F", packet->coordinate.z);
           oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);         
-          if(packet->coordinate.a != 0xFFFFFFFF){ 
+          if(!isnan(packet->coordinate.a)){ 
             sprintf(charbuf, "A %8.3F", packet->coordinate.a);
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
           }else{
@@ -1364,7 +1366,7 @@ draw_main_screen(1);
         }}
         if (macro_lower_pressed){
           if (gpio_get(LOWERBUTTON)){
-            if(packet->coordinate.a != 0xFFFFFFFF){
+            if(!isnan(packet->coordinate.a)){
               //switch screen to jogmode
               screenmode = JOGGING;
               //send jog character
@@ -1377,7 +1379,7 @@ draw_main_screen(1);
             }
           }//button is still pressed, Jog A Axis//button is still pressed, Jog A axis
           else{
-              if(packet->coordinate.a != 0xFFFFFFFF){          
+              if(!isnan(packet->coordinate.a)){          
                 //gpio_put(KPSTR_PIN, false);
                 jog_toggle_pressed = 0;
                 joggle_reset = true;
@@ -1393,7 +1395,7 @@ draw_main_screen(1);
         }}  
         if (macro_raise_pressed){
           if (gpio_get(RAISEBUTTON)){
-            if(packet->coordinate.a != 0xFFFFFFFF){
+            if(!isnan(packet->coordinate.a)){
               //switch screen to jogmode
               screenmode = JOGGING;
               //send jog character
@@ -1406,7 +1408,7 @@ draw_main_screen(1);
             }
           }//button is still pressed, Jog A Axis//button is still pressed, Jog A axis
           else{
-              if(packet->coordinate.a != 0xFFFFFFFF){        
+              if(!isnan(packet->coordinate.a)){        
                 //gpio_put(KPSTR_PIN, false);
                 jog_toggle_pressed = 0;
                 joggle_reset = true;
