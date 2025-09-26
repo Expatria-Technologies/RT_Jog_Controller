@@ -233,7 +233,7 @@ uint8_t keypad_sendchar (uint8_t character, bool clearpin, bool update_status) {
 
 static void update_neopixels(void){
 
-  if (context.mem_address < offsetof(machine_status_packet_t, msgtype))
+  if (context.mem_address_written || (packet->status_code == Status_UserException))// < offsetof(machine_status_packet_t, msgtype))
     return;
   
   //set override LEDS
@@ -917,7 +917,7 @@ draw_main_screen(1);
             packet->coordinate.x != previous_packet->coordinate.x ||
             packet->coordinate.y != previous_packet->coordinate.y ||
             packet->coordinate.z != previous_packet->coordinate.z ||
-            packet->coordinate.a != previous_packet->coordinate.a ||                  
+            (!isnan(packet->coordinate.a) && (packet->coordinate.a != previous_packet->coordinate.a)) ||                  
             packet->current_wcs != previous_packet->current_wcs ||
             packet->jog_stepsize != previous_packet->jog_stepsize ||
             packet->feed_rate != previous_packet->feed_rate ||
@@ -953,9 +953,9 @@ draw_main_screen(1);
           if(!jog_toggle_pressed){             
           key_character = CMD_FEED_HOLD ;
           keypad_sendchar(key_character, 1, 1);
-          }
           while(gpio_get(HOLDBUTTON))
             sleep_us(100);
+          };
           //gpio_put(KPSTR_PIN, false);
                                 
         } else if (gpio_get(RUNBUTTON)){
@@ -963,9 +963,9 @@ draw_main_screen(1);
           if(!jog_toggle_pressed){             
           key_character = CMD_CYCLE_START ;
           keypad_sendchar(key_character, 1, 1);
-          }
           while(gpio_get(RUNBUTTON))
             sleep_us(100);
+          };
           //gpio_put(KPSTR_PIN, false);    
         //misc commands.  These activate on lift
         } else if (gpio_get(SPINOVER_UP)){  
