@@ -135,10 +135,10 @@ uint8_t macro_right_pressed = 0;
 uint8_t macro_lower_pressed = 0;
 uint8_t macro_raise_pressed = 0;
 uint8_t macro_home_pressed = 0;
+uint8_t macro_spindle_pressed = 0;
 uint8_t reset_pressed = 0;
 uint8_t unlock_pressed = 0;
 uint8_t halt_pressed = 0;
-uint8_t spinon_pressed = 0;
 
 machine_status_packet_t *packet = (machine_status_packet_t*) context.mem;
 machine_status_packet_t prev_packet;
@@ -1159,7 +1159,7 @@ draw_main_screen(1);
               macro_home_pressed = 1;
             }  
             if (gpio_get(SPINDLEBUTTON)){
-              spinon_pressed = 1;
+              macro_spindle_pressed = 1;
             }  
             if (gpio_get(HOLDBUTTON)){
               reset_pressed = 1;
@@ -1281,7 +1281,7 @@ draw_main_screen(1);
           if (gpio_get(SPINDLEBUTTON)){}//button is still pressed, do nothing
           else{
             if(!jog_toggle_pressed){
-            key_character = SPINOFF;
+            key_character = CMD_OVERRIDE_SPINDLE_STOP;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
             }
@@ -1422,13 +1422,13 @@ draw_main_screen(1);
               sleep_ms(10);
               update_neopixels();              
         }}        
-        if (spinon_pressed){
+        if (macro_spindle_pressed){
           if (gpio_get(SPINDLEBUTTON)){}//button is still pressed, do nothing
           else{
-            key_character = SPINON;
+            key_character = MACROSPINDLE;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
-            spinon_pressed = 0;
+            macro_spindle_pressed = 0;
             sleep_ms(10);
             update_neopixels();
         }}
