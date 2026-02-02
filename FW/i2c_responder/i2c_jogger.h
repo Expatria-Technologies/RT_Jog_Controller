@@ -1,8 +1,8 @@
 #ifndef __I2C_JOGGER_H__
 #define __I2C_JOGGER_H__
 
-#define PLUGIN_VERSION "PLUGIN: Keypad v1.41"
-#define JOG2K_FW_VERSION "1.1.0"
+#define PLUGIN_VERSION "PLUGIN: Keypad v1.44"
+#define JOG2K_FW_VERSION "1.2.0"
 
 #ifndef BUILD_SHA
 #define BUILD_SHA "dev"
@@ -361,6 +361,7 @@ typedef union {
                 mpg            :1,
                 homed          :1,
                 tlo_referenced :1,
+                imperial       :1,
                 mode           :3; // from machine_mode_t setting
     };
 } machine_modes_t;

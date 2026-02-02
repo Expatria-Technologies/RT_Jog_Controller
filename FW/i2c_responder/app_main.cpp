@@ -515,21 +515,33 @@ static void draw_main_screen(bool force){
            packet->coordinate.y != previous_packet->coordinate.y || 
            packet->coordinate.z != previous_packet->coordinate.z || 
            packet->coordinate.a != previous_packet->coordinate.a || force){
-          sprintf(charbuf, "X %8.3F", packet->coordinate.x);
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "X %8.4F", packet->coordinate.x);
+          else
+            sprintf(charbuf, "X %8.3F", packet->coordinate.x);
           oledWriteString(&oled, 0,0,2,charbuf, FONT_8x8, 0, 1);
           //}
           //oledWriteString(&oled, 2,0,3,(char *)"        ", FONT_8x8, 0, 1);
           //if(packet->y_coordinate != previous_packet.y_coordinate || force){ 
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "Y %8.4F", packet->coordinate.y);
+          else
             sprintf(charbuf, "Y %8.3F", packet->coordinate.y);
-            oledWriteString(&oled, 0,0,3,charbuf, FONT_8x8, 0, 1);
+          oledWriteString(&oled, 0,0,3,charbuf, FONT_8x8, 0, 1);
           //}
           //oledWriteString(&oled, 2,0,4,(char *)"        ", FONT_8x8, 0, 1);
           //if(packet->z_coordinate != previous_packet.z_coordinate || force){ 
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "Z %8.4F", packet->coordinate.z);
+          else
             sprintf(charbuf, "Z %8.3F", packet->coordinate.z);
-            oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);
+          oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);
           //}
           if(!isnan(packet->coordinate.a)){          
-            sprintf(charbuf, "A %8.3F", packet->coordinate.a);
+            if(packet->machine_modes.imperial == 1)
+              sprintf(charbuf, "A %8.4F", packet->coordinate.a);
+            else
+              sprintf(charbuf, "A %8.3F", packet->coordinate.a);
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
           }else if (command_error){
             sprintf(charbuf, "COMMAND ERR", packet->coordinate.a);
@@ -568,16 +580,28 @@ static void draw_main_screen(bool force){
           oledWriteString(&oled, 0,-1,-1,(char *)"RUN  ", FONT_6x8, 0, 1); 
 
           oledWriteString(&oled, 2,0,2,(char *)"        ", FONT_8x8, 0, 1); 
-          sprintf(charbuf, "X %8.3F", packet->coordinate.x);
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "X %8.4F", packet->coordinate.x);
+          else
+            sprintf(charbuf, "X %8.3F", packet->coordinate.x);
           oledWriteString(&oled, 0,0,2,charbuf, FONT_8x8, 0, 1);
           oledWriteString(&oled, 2,0,3,(char *)"        ", FONT_8x8, 0, 1); 
-          sprintf(charbuf, "Y %8.3F", packet->coordinate.y);
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "Y %8.4F", packet->coordinate.y);
+          else
+            sprintf(charbuf, "Y %8.3F", packet->coordinate.y);
           oledWriteString(&oled, 0,0,3,charbuf, FONT_8x8, 0, 1);
           oledWriteString(&oled, 2,0,4,(char *)"        ", FONT_8x8, 0, 1); 
-          sprintf(charbuf, "Z %8.3F", packet->coordinate.z);
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "Z %8.4F", packet->coordinate.z);
+          else
+            sprintf(charbuf, "Z %8.3F", packet->coordinate.z);
           oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);
-          if(!isnan(packet->coordinate.a)){ 
-            sprintf(charbuf, "A %8.3F", packet->coordinate.a);
+          if(!isnan(packet->coordinate.a)){          
+            if(packet->machine_modes.imperial == 1)
+              sprintf(charbuf, "A %8.4F", packet->coordinate.a);
+            else
+              sprintf(charbuf, "A %8.3F", packet->coordinate.a);
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
           }else{
             sprintf(charbuf, "          ", packet->coordinate.a);
@@ -604,14 +628,26 @@ static void draw_main_screen(bool force){
           oledWriteString(&oled, 0,0,2,(char *)"                G", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,-1,-1,map_coord_system(packet->current_wcs), FONT_6x8, 0, 1);   
 
-          sprintf(charbuf, "X %8.3F", packet->coordinate.x);
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "X %8.4F", packet->coordinate.x);
+          else
+            sprintf(charbuf, "X %8.3F", packet->coordinate.x);
           oledWriteString(&oled, 0,0,2,charbuf, FONT_8x8, 0, 1); 
-          sprintf(charbuf, "Y %8.3F", packet->coordinate.y);
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "Y %8.4F", packet->coordinate.y);
+          else
+            sprintf(charbuf, "Y %8.3F", packet->coordinate.y);
           oledWriteString(&oled, 0,0,3,charbuf, FONT_8x8, 0, 1); 
-          sprintf(charbuf, "Z %8.3F", packet->coordinate.z);
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "Z %8.4F", packet->coordinate.z);
+          else
+            sprintf(charbuf, "Z %8.3F", packet->coordinate.z);
           oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);
-          if(!isnan(packet->coordinate.a)){ 
-            sprintf(charbuf, "A %8.3F", packet->coordinate.a);
+          if(!isnan(packet->coordinate.a)){          
+            if(packet->machine_modes.imperial == 1)
+              sprintf(charbuf, "A %8.4F", packet->coordinate.a);
+            else
+              sprintf(charbuf, "A %8.3F", packet->coordinate.a);
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
           }else{
             sprintf(charbuf, "          ", packet->coordinate.a);
@@ -650,14 +686,26 @@ static void draw_main_screen(bool force){
           oledWriteString(&oled, 0,0,2,(char *)"                G", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,-1,-1,map_coord_system(packet->current_wcs), FONT_6x8, 0, 1);             
 
-          sprintf(charbuf, "X %8.3F", packet->coordinate.x);
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "X %8.4F", packet->coordinate.x);
+          else
+            sprintf(charbuf, "X %8.3F", packet->coordinate.x);
           oledWriteString(&oled, 0,0,2,charbuf, FONT_8x8, 0, 1); 
-          sprintf(charbuf, "Y %8.3F", packet->coordinate.y);
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "Y %8.4F", packet->coordinate.y);
+          else
+            sprintf(charbuf, "Y %8.3F", packet->coordinate.y);
           oledWriteString(&oled, 0,0,3,charbuf, FONT_8x8, 0, 1); 
-          sprintf(charbuf, "Z %8.3F", packet->coordinate.z);
+          if(packet->machine_modes.imperial == 1)
+            sprintf(charbuf, "Z %8.4F", packet->coordinate.z);
+          else
+            sprintf(charbuf, "Z %8.3F", packet->coordinate.z);
           oledWriteString(&oled, 0,0,4,charbuf, FONT_8x8, 0, 1);         
-          if(!isnan(packet->coordinate.a)){ 
-            sprintf(charbuf, "A %8.3F", packet->coordinate.a);
+          if(!isnan(packet->coordinate.a)){          
+            if(packet->machine_modes.imperial == 1)
+              sprintf(charbuf, "A %8.4F", packet->coordinate.a);
+            else
+              sprintf(charbuf, "A %8.3F", packet->coordinate.a);
             oledWriteString(&oled, 0,0,5,charbuf, FONT_8x8, 0, 1);
           }else{
             sprintf(charbuf, "          ", packet->coordinate.a);
