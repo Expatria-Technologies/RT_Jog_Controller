@@ -728,6 +728,7 @@ static void draw_main_screen(bool force){
           //only re-fill the screen if the state or alarm code have changed.
           if( (prev_packet.machine_substate != packet->machine_substate) || (prev_packet.machine_state != packet->machine_state) )
             oledFill(&oled, 0,1);
+            prev_packet.machine_substate = packet->machine_substate;
           oledWriteString(&oled, 0,0,0,(char *)" *****************", FONT_6x8, 0, 1);
           oledWriteString(&oled, 0,0,7,(char *)" *****************", FONT_6x8, 0, 1);
           //no jog during hold
@@ -757,6 +758,7 @@ static void draw_main_screen(bool force){
         break; //close default case
       }//close machine_state switch statement
   }//close screen mode switch statement
+  packet->machine_substate = prev_packet.machine_substate;
   prev_packet = *packet;
   // previous_jogmode = current_jogmode;
   // previous_jogmodify = current_jogmodify;
