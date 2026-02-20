@@ -893,7 +893,7 @@ rc = oledInit(&oled, OLED_128x64, 0x3c, screenflip, 0, 0, SDA_PIN, SCL_PIN, RESE
 oledSetBackBuffer(&oled, ucBuffer);
 oledFill(&oled, 0,1);
 oledWriteString(&oled, 0,0,1,(char *)"JOG2K", FONT_12x16, 0, 1);
-oledWriteString(&oled, 0,0,4,(char *)JOG2K_VERSION, FONT_12x16, 0, 1);
+oledWriteString(&oled, 0,0,4,(char *)JOG2K_VERSION, FONT_8x8, 0, 1);
 oledWriteString(&oled, 0,0,7,(char *)PLUGIN_VERSION, FONT_6x8, 0, 1);
 sleep_ms(1000);
 oledFill(&oled, 0,1);

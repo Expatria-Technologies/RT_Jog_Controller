@@ -1,0 +1,51 @@
+name: Build Firmware
+
+on:
+  push:
+  pull_request:
+
+env:
+  PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Checkout pico-sdk
+        uses: actions/checkout@v4
+        with:
+          repository: raspberrypi/pico-sdk
+          ref: '1.5.1'
+          path: pico-sdk
+          submodules: true
+
+      - name: Install ARM toolchain
+        uses: carlosperate/arm-none-eabi-gcc-action@v1
+        with:
+          release: '13.3.Rel1'
+
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake build-essential
+
+      - name: Determine short SHA
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
+
+      - name: Configure
+        run: >
+          cmake -B FW/i2c_responder/build -S FW/i2c_responder
+          -DCMAKE_BUILD_TYPE=Release
+          -DBUILD_SHA=${{ env.SHORT_SHA }}
+
+      - name: Build
+        run: cmake --build FW/i2c_responder/build --parallel $(nproc)
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: jog2k-${{ env.SHORT_SHA }}
+          path: FW/i2c_responder/build/jog2k-${{ env.SHORT_SHA }}.uf2
+          if-no-files-found: error
