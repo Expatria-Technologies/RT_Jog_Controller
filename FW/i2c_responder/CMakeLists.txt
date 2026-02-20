@@ -22,6 +22,14 @@ pico_generate_pio_header(app_main  ${CMAKE_CURRENT_LIST_DIR}/ws2812byte.pio)
 pico_enable_stdio_usb(app_main 1)
 pico_enable_stdio_uart(app_main 1)
 pico_add_extra_outputs(app_main)
+
+if(DEFINED BUILD_SHA)
+    target_compile_definitions(app_main PRIVATE BUILD_SHA="${BUILD_SHA}")
+    set_target_properties(app_main PROPERTIES OUTPUT_NAME "jog2k-${BUILD_SHA}")
+else()
+    set_target_properties(app_main PROPERTIES OUTPUT_NAME "jog2k")
+endif()
+
 # Pull in pico libraries that we need
 # target_link_libraries(pico_neopixel INTERFACE pico_stdlib hardware_pio pico_malloc pico_mem_ops)
 target_link_libraries(app_main i2c_slave pico_stdlib hardware_i2c pico_stdlib hardware_pio pico_malloc pico_mem_ops)
