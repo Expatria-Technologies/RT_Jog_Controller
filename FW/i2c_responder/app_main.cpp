@@ -1267,9 +1267,11 @@ draw_main_screen(1);
         if (feed_reset_pressed) {
           if (gpio_get(FEEDOVER_RESET)){}//button is still pressed, do nothing
           else{
+            if(!jog_toggle_pressed){
             key_character = CMD_OVERRIDE_FEED_RESET;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
+            }
             feed_reset_pressed = 0;
             update_neopixels();                
           }
@@ -1297,9 +1299,11 @@ draw_main_screen(1);
         if (spin_reset_pressed) {
           if (gpio_get(SPINOVER_RESET)){}//button is still pressed, do nothing
           else{
+            if(!jog_toggle_pressed){
             key_character = CMD_OVERRIDE_SPINDLE_RESET;
             keypad_sendchar (key_character, 1, 1);
             gpio_put(ONBOARD_LED,1);
+            }
             spin_reset_pressed = 0;
             update_neopixels();          
           }
@@ -1432,7 +1436,7 @@ draw_main_screen(1);
           else{
               if(!isnan(packet->coordinate.a)){          
                 //gpio_put(KPSTR_PIN, false);
-                jog_toggle_pressed = 0;
+                //jog_toggle_pressed = 0;
                 joggle_reset = true;
               }
               else{
@@ -1461,7 +1465,7 @@ draw_main_screen(1);
           else{
               if(!isnan(packet->coordinate.a)){        
                 //gpio_put(KPSTR_PIN, false);
-                jog_toggle_pressed = 0;
+                //jog_toggle_pressed = 0;
                 joggle_reset = true;
               }
               else{

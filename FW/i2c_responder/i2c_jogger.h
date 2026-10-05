@@ -1,11 +1,11 @@
 #ifndef __I2C_JOGGER_H__
 #define __I2C_JOGGER_H__
 
-#define PLUGIN_VERSION "PLUGIN: Keypad v1.44"
-#define JOG2K_FW_VERSION "1.2.0"
+#define PLUGIN_VERSION "PLUGIN: Keypad v1.47"
+#define JOG2K_FW_VERSION "1.2.1"
 
 #ifndef BUILD_SHA
-#define BUILD_SHA "dev"
+#define BUILD_SHA "eng"
 #endif
 
 #define JOG2K_VERSION "v" JOG2K_FW_VERSION "+" BUILD_SHA
@@ -108,6 +108,12 @@ const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGE
 #define MACROSPINDLE    0xB4 //MACRO_KEY4
 #define MACRORAISE      0xB5 //MACRO_KEY5
 #define MACROLOWER      0xB6 //MACRO_KEY6
+
+#define LASERSHUTTER    0xBA //LASER_SHUTTER
+#define LASERPILOT      0xBB //LASER_PILOT
+
+#define POWDER1SELECT   0xB6 //MACRO_KEY6 (REMAP to POWDER1 +FUNCTION)
+#define POWDER2SELECT   0xB7 //MACRO_KEY7 (REMAP to POWDER2 +FUNCTION)
 
 #define MACROHOME   'o'  //toggle WCS offset
 #define RESET  0x18
